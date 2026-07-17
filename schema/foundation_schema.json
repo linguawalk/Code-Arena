@@ -37,12 +37,12 @@
         },
         "type": {
           "type": "string",
-          "enum": ["concept_quiz", "order", "fill_blank", "concept_matching"],
-          "description": "concept_quiz: 코드 없는 객관식 / order: 순서 배열(드래그) / fill_blank: 순서도·코드 빈칸 / concept_matching: 용어-설명 매칭"
+          "enum": ["concept_quiz", "order", "fill_blank", "concept_matching", "predict_output", "error_finding"],
+          "description": "concept_quiz: 코드 없는 객관식 / order: 순서 배열(드래그) / fill_blank: 순서도·코드 빈칸 / concept_matching: 용어-설명 매칭 / predict_output: 코드 출력 예측(stage1 C 온보딩부터 사용) / error_finding: 오류 위치 찾기(stage1부터 사용)"
         },
         "code": {
           "type": ["string", "null"],
-          "description": "fill_blank에서만 사용. 나머지 유형은 null."
+          "description": "fill_blank, predict_output, error_finding에서 사용. 나머지 유형은 null."
         },
         "prompt_en": { "type": "string" },
         "prompt_ko": { "type": "string" },
@@ -100,7 +100,7 @@
           "then": { "required": ["pairs"] }
         },
         {
-          "if": { "properties": { "type": { "enum": ["concept_quiz", "fill_blank"] } } },
+          "if": { "properties": { "type": { "enum": ["concept_quiz", "fill_blank", "predict_output", "error_finding"] } } },
           "then": { "required": ["options", "answer"] }
         }
       ]
