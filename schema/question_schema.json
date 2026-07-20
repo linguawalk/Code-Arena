@@ -11,7 +11,7 @@
     },
     "category": {
       "type": "string",
-      "enum": ["system_low_level", "oop_enterprise", "scripting", "legacy_historical"]
+      "enum": ["system_low_level", "oop_enterprise", "scripting", "legacy_historical", "data_structures_algorithms"]
     },
     "level": {
       "type": "integer",
