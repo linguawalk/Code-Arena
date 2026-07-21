@@ -8,27 +8,28 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0a0e1a;
-    --panel: #10162a;
-    --panel-2: #141b32;
-    --border: rgba(140,160,210,0.14);
-    --text: #e7edf8;
-    --text-dim: #8b96ac;
-    --text-dimmer: #5c6478;
+    --bg: #f4f7fc;
+    --panel: #ffffff;
+    --panel-2: #eef2fa;
+    --border: rgba(30,50,90,0.12);
+    --text: #172038;
+    --text-dim: #5c6680;
+    --text-dimmer: #93a0b8;
 
-    --c-system: #5dd8ff;
-    --c-oop:    #ffb454;
-    --c-script: #7ee787;
-    --c-legacy: #ff8177;
-    --c-module: #c9a6ff;
-    --c-found:  #ffe27a;
+    --c-system: #0284c7;
+    --c-oop:    #d97706;
+    --c-script: #15803d;
+    --c-legacy: #dc2626;
+    --c-module: #7c3aed;
+    --c-found:  #b45309;
+    --accent:   #0284c7;
   }
   *{ box-sizing:border-box; }
   body{
     margin:0;
     min-height:100vh;
     background:
-      radial-gradient(circle at 15% 0%, rgba(93,141,255,0.10), transparent 45%),
+      radial-gradient(circle at 15% 0%, rgba(2,132,199,0.06), transparent 45%),
       var(--bg);
     color: var(--text);
     font-family:'IBM Plex Sans KR', sans-serif;
@@ -53,7 +54,7 @@
     border-radius: 8px;
     padding: 7px 12px;
   }
-  .topbar a:hover{ border-color: var(--accent, #5dd8ff); color: var(--text); }
+  .topbar a:hover{ border-color: var(--accent, #0284c7); color: var(--text); }
 
   header.pagehead{ margin-bottom: 34px; }
   .eyebrow{
@@ -97,7 +98,7 @@
     border: 1px solid var(--border);
     border-radius: 9px;
     padding: 12px 14px;
-    background: rgba(255,255,255,0.015);
+    background: rgba(23,32,56,0.02);
     transition: border-color 0.12s ease, transform 0.12s ease;
   }
   .unit-link:hover{ border-color: var(--accent); transform: translateY(-1px); }

@@ -8,21 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0a0e1a;
-    --panel: #10162a;
-    --panel-2: #141b32;
-    --grid-line: rgba(93,141,255,0.07);
-    --border: rgba(140,160,210,0.14);
-    --text: #e7edf8;
-    --text-dim: #8b96ac;
-    --text-dimmer: #5c6478;
+    --bg: #f4f7fc;
+    --panel: #ffffff;
+    --panel-2: #eef2fa;
+    --grid-line: rgba(40,80,180,0.05);
+    --border: rgba(30,50,90,0.12);
+    --text: #172038;
+    --text-dim: #5c6680;
+    --text-dimmer: #93a0b8;
 
-    --c-system: #5dd8ff;   /* Track A: 시스템/저수준 */
-    --c-oop:    #ffb454;   /* Track B: 객체지향/엔터프라이즈 */
-    --c-script: #7ee787;   /* Track C: 스크립트/실무 */
-    --c-legacy: #ff8177;   /* Track D: 레거시/역사 */
-    --c-module: #c9a6ff;   /* Modules: 자료구조/알고리즘 */
-    --c-found:  #ffe27a;   /* Foundation */
+    --c-system: #0284c7;   /* Track A: 시스템/저수준 */
+    --c-oop:    #d97706;   /* Track B: 객체지향/엔터프라이즈 */
+    --c-script: #15803d;   /* Track C: 스크립트/실무 */
+    --c-legacy: #dc2626;   /* Track D: 레거시/역사 */
+    --c-module: #7c3aed;   /* Modules: 자료구조/알고리즘 */
+    --c-found:  #b45309;   /* Foundation */
   }
 
   * { box-sizing: border-box; }
@@ -33,8 +33,8 @@
     background:
       linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 42px 42px,
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 42px 42px,
-      radial-gradient(circle at 20% 0%, rgba(93,141,255,0.10), transparent 45%),
-      radial-gradient(circle at 85% 15%, rgba(126,231,135,0.06), transparent 40%),
+      radial-gradient(circle at 20% 0%, rgba(2,132,199,0.06), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(21,128,61,0.05), transparent 40%),
       var(--bg);
     color: var(--text);
     font-family: 'IBM Plex Sans KR', sans-serif;
@@ -46,7 +46,7 @@
 
   a { color: inherit; }
 
-  ::selection { background: rgba(93,141,255,0.35); }
+  ::selection { background: rgba(2,132,199,0.20); }
 
   /* ---------- layout shell ---------- */
   .wrap{
@@ -181,7 +181,7 @@
     width:10px; height:10px;
     border-radius:50%;
     background: var(--dotcolor);
-    box-shadow: 0 0 0 4px rgba(10,14,26,1), 0 0 12px var(--dotcolor);
+    box-shadow: 0 0 0 4px var(--panel), 0 0 8px var(--dotcolor);
   }
   .tl-stem{
     position:absolute;
@@ -295,7 +295,7 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 16px 16px 14px;
-    background: rgba(255,255,255,0.015);
+    background: rgba(23,32,56,0.02);
     transition: border-color 0.15s ease, transform 0.15s ease;
     cursor: pointer;
   }
@@ -355,7 +355,7 @@
     display:block;
   }
   .gotcha code{
-    background: rgba(255,255,255,0.06);
+    background: rgba(23,32,56,0.06);
     padding: 1px 5px;
     border-radius: 4px;
     font-size: 11.5px;

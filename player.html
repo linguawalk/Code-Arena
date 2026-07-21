@@ -8,25 +8,25 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0a0e1a;
-    --panel: #10162a;
-    --panel-2: #141b32;
-    --border: rgba(140,160,210,0.14);
-    --text: #e7edf8;
-    --text-dim: #8b96ac;
-    --text-dimmer: #5c6478;
-    --accent: #5dd8ff;
-    --good: #7ee787;
-    --bad: #ff8177;
-    --warn: #ffb454;
+    --bg: #f4f7fc;
+    --panel: #ffffff;
+    --panel-2: #eef2fa;
+    --border: rgba(30,50,90,0.12);
+    --text: #172038;
+    --text-dim: #5c6680;
+    --text-dimmer: #93a0b8;
+    --accent: #0284c7;
+    --good: #15803d;
+    --bad: #dc2626;
+    --warn: #b45309;
   }
   *{ box-sizing:border-box; }
   body{
     margin:0;
     min-height:100vh;
     background:
-      radial-gradient(circle at 15% 0%, rgba(93,141,255,0.10), transparent 45%),
-      radial-gradient(circle at 90% 10%, rgba(126,231,135,0.06), transparent 40%),
+      radial-gradient(circle at 15% 0%, rgba(2,132,199,0.06), transparent 45%),
+      radial-gradient(circle at 90% 10%, rgba(21,128,61,0.05), transparent 40%),
       var(--bg);
     color: var(--text);
     font-family:'IBM Plex Sans KR', sans-serif;
@@ -105,9 +105,9 @@
     font-size: 11px;
     border: 1px solid var(--border);
   }
-  .badge.intro{ color: var(--good); border-color: rgba(126,231,135,0.35); }
-  .badge.practice{ color: var(--accent); border-color: rgba(93,216,255,0.35); }
-  .badge.challenge{ color: var(--warn); border-color: rgba(255,180,84,0.35); }
+  .badge.intro{ color: var(--good); border-color: rgba(21,128,61,0.35); }
+  .badge.practice{ color: var(--accent); border-color: rgba(2,132,199,0.35); }
+  .badge.challenge{ color: var(--warn); border-color: rgba(180,83,9,0.35); }
 
   pre.code-block{
     background: #060911;
@@ -128,7 +128,7 @@
   .options{ display:flex; flex-direction:column; gap: 10px; margin-bottom: 6px; }
   .opt{
     text-align:left;
-    background: rgba(255,255,255,0.02);
+    background: rgba(23,32,56,0.02);
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: 10px;
@@ -148,9 +148,9 @@
     flex-shrink:0;
   }
   .opt:disabled{ cursor:default; }
-  .opt.correct{ border-color: var(--good); background: rgba(126,231,135,0.08); }
+  .opt.correct{ border-color: var(--good); background: rgba(21,128,61,0.08); }
   .opt.correct .letter{ color: var(--good); }
-  .opt.wrong{ border-color: var(--bad); background: rgba(255,129,119,0.08); }
+  .opt.wrong{ border-color: var(--bad); background: rgba(220,38,38,0.08); }
   .opt.wrong .letter{ color: var(--bad); }
   .opt.dim{ opacity: 0.45; }
 
@@ -189,7 +189,7 @@
   button.primary{
     font-family:'IBM Plex Mono',monospace;
     background: var(--accent);
-    color: #05202b;
+    color: #ffffff;
     border:none;
     border-radius: 9px;
     padding: 11px 22px;
@@ -230,7 +230,7 @@
     background: transparent;
     color: var(--text);
   }
-  .result-actions .go-next{ background: var(--accent); color:#05202b; border:none; font-weight:600; }
+  .result-actions .go-next{ background: var(--accent); color:#ffffff; border:none; font-weight:600; }
 
   .loading, .error-state{
     text-align:center;
