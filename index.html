@@ -289,11 +289,15 @@
 
   .card{
     position:relative;
+    display:block;
+    text-decoration:none;
+    color: inherit;
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 16px 16px 14px;
     background: rgba(255,255,255,0.015);
     transition: border-color 0.15s ease, transform 0.15s ease;
+    cursor: pointer;
   }
   .card:hover{
     border-color: var(--accent);
@@ -432,16 +436,16 @@
         <div class="chevron">▸</div>
       </summary>
       <div class="cards">
-        <div class="card">
+        <a class="card" href="browse.html?type=foundation&stage=stage0_computer_thinking">
           <div class="card-top"><span class="card-lang">Stage 0 · 컴퓨터적 사고</span><span class="card-scale">6유닛</span></div>
           <div class="card-stats"><span><b>36</b>문제</span></div>
           <div class="gotcha"><span class="tag-line">다루는 내용</span>알고리즘, 변수/조건문 개념, 반복문 개념, 함수 개념, 입출력, 디버깅 사고 — 특정 언어 문법 없이 사고방식부터 시작</div>
-        </div>
-        <div class="card">
+        </a>
+        <a class="card" href="browse.html?type=foundation&stage=stage1_c_onboarding">
           <div class="card-top"><span class="card-lang">Stage 1 · C 온보딩</span><span class="card-scale">8유닛</span></div>
           <div class="card-stats"><span><b>48</b>문제</span></div>
           <div class="gotcha"><span class="tag-line">다루는 내용</span>컴파일 과정, 자료형, 조건문, 반복문, 배열, 함수, 포인터, 문자열 — 이후 트랙 A로 자연스럽게 이어짐</div>
-        </div>
+        </a>
       </div>
     </details>
 
@@ -581,47 +585,47 @@ TL.forEach((item, i) => {
 });
 
 // ---------------- Track card data ----------------
-function card({lang, levels, units, q, gotchaTag, gotchaHtml}) {
-  return `<div class="card">
+function card({lang, levels, units, q, gotchaTag, gotchaHtml, href}) {
+  return `<a class="card" href="${href}">
     <div class="card-top">
       <span class="card-lang">${lang}</span>
       <span class="card-scale">${levels}레벨</span>
     </div>
     <div class="card-stats"><span><b>${units}</b>유닛</span><span><b>${q}</b>문제</span></div>
     <div class="gotcha"><span class="tag-line">${gotchaTag}</span>${gotchaHtml}</div>
-  </div>`;
+  </a>`;
 }
 
 document.getElementById('cards-a').innerHTML = [
-  card({lang:'C', levels:6, units:24, q:143, gotchaTag:'발견한 함정', gotchaHtml:'포인터 산술, 이중 포인터, <code>%d</code> 등 포맷 지정자 불일치 시 정의되지 않은 동작'}),
-  card({lang:'C++', levels:4, units:16, q:96, gotchaTag:'발견한 함정', gotchaHtml:'<code>virtual</code> 없이는 다형성이 동작하지 않음 — Java와 달리 기본이 정적 바인딩'}),
-  card({lang:'Rust', levels:4, units:16, q:96, gotchaTag:'발견한 함정', gotchaHtml:'소유권 이동(move)과 대여 검사기 — 컴파일 시점에 메모리 안전성 강제'}),
+  card({lang:'C', levels:6, units:24, q:143, href:'browse.html?type=language&track=track_a&lang=c', gotchaTag:'발견한 함정', gotchaHtml:'포인터 산술, 이중 포인터, <code>%d</code> 등 포맷 지정자 불일치 시 정의되지 않은 동작'}),
+  card({lang:'C++', levels:4, units:16, q:96, href:'browse.html?type=language&track=track_a&lang=cpp', gotchaTag:'발견한 함정', gotchaHtml:'<code>virtual</code> 없이는 다형성이 동작하지 않음 — Java와 달리 기본이 정적 바인딩'}),
+  card({lang:'Rust', levels:4, units:16, q:96, href:'browse.html?type=language&track=track_a&lang=rust', gotchaTag:'발견한 함정', gotchaHtml:'소유권 이동(move)과 대여 검사기 — 컴파일 시점에 메모리 안전성 강제'}),
 ].join('');
 
 document.getElementById('cards-b').innerHTML = [
-  card({lang:'Visual Basic', levels:6, units:24, q:143, gotchaTag:'발견한 함정', gotchaHtml:'<code>Dim nums(4)</code>는 5개 요소 — 인덱스 기반 크기 지정, C#의 개수 기반과 반대'}),
-  card({lang:'C#', levels:6, units:24, q:144, gotchaTag:'발견한 함정', gotchaHtml:'switch fall-through는 <code>CS0163</code> 컴파일 오류 — C 계열과 정반대 규칙'}),
-  card({lang:'Java', levels:6, units:24, q:144, gotchaTag:'발견한 함정', gotchaHtml:'메서드가 기본적으로 오버라이드 가능, <code>HashMap.get()</code>은 예외 대신 null 반환'}),
+  card({lang:'Visual Basic', levels:6, units:24, q:143, href:'browse.html?type=language&track=track_b&lang=visual_basic', gotchaTag:'발견한 함정', gotchaHtml:'<code>Dim nums(4)</code>는 5개 요소 — 인덱스 기반 크기 지정, C#의 개수 기반과 반대'}),
+  card({lang:'C#', levels:6, units:24, q:144, href:'browse.html?type=language&track=track_b&lang=csharp', gotchaTag:'발견한 함정', gotchaHtml:'switch fall-through는 <code>CS0163</code> 컴파일 오류 — C 계열과 정반대 규칙'}),
+  card({lang:'Java', levels:6, units:24, q:144, href:'browse.html?type=language&track=track_b&lang=java', gotchaTag:'발견한 함정', gotchaHtml:'메서드가 기본적으로 오버라이드 가능, <code>HashMap.get()</code>은 예외 대신 null 반환'}),
 ].join('');
 
 document.getElementById('cards-c').innerHTML = [
-  card({lang:'Python', levels:6, units:24, q:143, gotchaTag:'발견한 함정', gotchaHtml:'가변 기본값 매개변수 함정, <code>-7 // 2 == -4</code> (음의 무한대 방향 내림)'}),
-  card({lang:'JavaScript', levels:6, units:24, q:144, gotchaTag:'발견한 함정', gotchaHtml:'<code>typeof null === "object"</code>, <code>10/0 === Infinity</code> (예외 없음)'}),
-  card({lang:'PHP', levels:4, units:16, q:96, gotchaTag:'발견한 함정', gotchaHtml:'문자열 연결은 <code>.</code> (+가 아님), PHP 8에서 <code>"Hello"+5</code>는 TypeError'}),
+  card({lang:'Python', levels:6, units:24, q:143, href:'browse.html?type=language&track=track_c&lang=python', gotchaTag:'발견한 함정', gotchaHtml:'가변 기본값 매개변수 함정, <code>-7 // 2 == -4</code> (음의 무한대 방향 내림)'}),
+  card({lang:'JavaScript', levels:6, units:24, q:144, href:'browse.html?type=language&track=track_c&lang=javascript', gotchaTag:'발견한 함정', gotchaHtml:'<code>typeof null === "object"</code>, <code>10/0 === Infinity</code> (예외 없음)'}),
+  card({lang:'PHP', levels:4, units:16, q:96, href:'browse.html?type=language&track=track_c&lang=php', gotchaTag:'발견한 함정', gotchaHtml:'문자열 연결은 <code>.</code> (+가 아님), PHP 8에서 <code>"Hello"+5</code>는 TypeError'}),
 ].join('');
 
 document.getElementById('cards-d').innerHTML = [
-  card({lang:'BASIC', levels:3, units:12, q:71, gotchaTag:'발견한 함정', gotchaHtml:'<code>ON N GOTO</code> 범위 초과 시 조용히 넘어가지 않고 실제로 런타임 오류 발생'}),
-  card({lang:'Pascal', levels:3, units:12, q:72, gotchaTag:'발견한 함정', gotchaHtml:'<code>;</code>는 종결자가 아닌 구분자 — then절 뒤 세미콜론이 if문을 조기 종료시킴'}),
-  card({lang:'FORTRAN', levels:3, units:12, q:72, gotchaTag:'발견한 함정', gotchaHtml:'<code>z = x/y</code>가 실수 변수여도 정수 나눗셈이 먼저 계산됨; 기본이 참조 전달'}),
-  card({lang:'COBOL', levels:3, units:12, q:72, gotchaTag:'발견한 함정', gotchaHtml:'<code>REDEFINES</code>로 같은 메모리를 다른 구조로 재해석 — C의 union과 유사'}),
+  card({lang:'BASIC', levels:3, units:12, q:71, href:'browse.html?type=language&track=track_d&lang=basic_early', gotchaTag:'발견한 함정', gotchaHtml:'<code>ON N GOTO</code> 범위 초과 시 조용히 넘어가지 않고 실제로 런타임 오류 발생'}),
+  card({lang:'Pascal', levels:3, units:12, q:72, href:'browse.html?type=language&track=track_d&lang=pascal', gotchaTag:'발견한 함정', gotchaHtml:'<code>;</code>는 종결자가 아닌 구분자 — then절 뒤 세미콜론이 if문을 조기 종료시킴'}),
+  card({lang:'FORTRAN', levels:3, units:12, q:72, href:'browse.html?type=language&track=track_d&lang=fortran', gotchaTag:'발견한 함정', gotchaHtml:'<code>z = x/y</code>가 실수 변수여도 정수 나눗셈이 먼저 계산됨; 기본이 참조 전달'}),
+  card({lang:'COBOL', levels:3, units:12, q:72, href:'browse.html?type=language&track=track_d&lang=cobol', gotchaTag:'발견한 함정', gotchaHtml:'<code>REDEFINES</code>로 같은 메모리를 다른 구조로 재해석 — C의 union과 유사'}),
 ].join('');
 
 document.getElementById('cards-m').innerHTML = [
-  card({lang:'배열/리스트', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'Big-O 표기법, 배열 vs 연결 리스트 — 실제 시간 측정으로 이론 검증'}),
-  card({lang:'스택/큐', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'LIFO vs FIFO, <code>list.pop(0)</code>이 <code>deque.popleft()</code>보다 3500배 느림'}),
-  card({lang:'정렬', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'버블/선택/삽입/병합/퀵 정렬 — O(n²)에서 O(n log n)까지'}),
-  card({lang:'탐색/트리/해시', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'정렬 안 된 배열에 이진 탐색 쓰면 조용히 틀린 결과 반환'}),
+  card({lang:'배열/리스트', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'Big-O 표기법, 배열 vs 연결 리스트 — 실제 시간 측정으로 이론 검증'}),
+  card({lang:'스택/큐', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'LIFO vs FIFO, <code>list.pop(0)</code>이 <code>deque.popleft()</code>보다 3500배 느림'}),
+  card({lang:'정렬', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'버블/선택/삽입/병합/퀵 정렬 — O(n²)에서 O(n log n)까지'}),
+  card({lang:'탐색/트리/해시', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'정렬 안 된 배열에 이진 탐색 쓰면 조용히 틀린 결과 반환'}),
 ].join('');
 </script>
 </body>
