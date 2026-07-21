@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODE ARENA — 커리큘럼 인덱스</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0e1a;
+    --panel: #10162a;
+    --panel-2: #141b32;
+    --grid-line: rgba(93,141,255,0.07);
+    --border: rgba(140,160,210,0.14);
+    --text: #e7edf8;
+    --text-dim: #8b96ac;
+    --text-dimmer: #5c6478;
+
+    --c-system: #5dd8ff;   /* Track A: 시스템/저수준 */
+    --c-oop:    #ffb454;   /* Track B: 객체지향/엔터프라이즈 */
+    --c-script: #7ee787;   /* Track C: 스크립트/실무 */
+    --c-legacy: #ff8177;   /* Track D: 레거시/역사 */
+    --c-module: #c9a6ff;   /* Modules: 자료구조/알고리즘 */
+    --c-found:  #ffe27a;   /* Foundation */
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 42px 42px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 42px 42px,
+      radial-gradient(circle at 20% 0%, rgba(93,141,255,0.10), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(126,231,135,0.06), transparent 40%),
+      var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  code, .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  a { color: inherit; }
+
+  ::selection { background: rgba(93,141,255,0.35); }
+
+  /* ---------- layout shell ---------- */
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    padding: 72px 0 52px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 56px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.16em;
+    color: var(--c-system);
+    text-transform: uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background: var(--c-system);
+    box-shadow: 0 0 10px var(--c-system);
+    border-radius: 1px;
+  }
+  h1{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:700;
+    font-size: clamp(38px, 6vw, 68px);
+    letter-spacing: -0.01em;
+    margin: 0 0 20px;
+    line-height: 1.02;
+  }
+  h1 span{ color: var(--text-dimmer); }
+  .sub{
+    max-width: 640px;
+    font-size: 17px;
+    color: var(--text-dim);
+    margin: 0 0 36px;
+  }
+  .sub strong{ color: var(--text); font-weight:500; }
+
+  .specsheet{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow:hidden;
+    background: var(--panel);
+  }
+  .specsheet div{
+    padding: 18px 20px;
+    border-left: 1px solid var(--border);
+  }
+  .specsheet div:first-child{ border-left:none; }
+  .spec-num{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:700;
+    font-size: 26px;
+    color: var(--text);
+  }
+  .spec-label{
+    font-size: 12px;
+    color: var(--text-dimmer);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+  @media (max-width: 720px){
+    .specsheet{ grid-template-columns: repeat(2, 1fr); }
+    .specsheet div:nth-child(3){ border-left:none; }
+  }
+
+  /* ---------- section titles ---------- */
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 0 0 22px;
+  }
+  .section-head h2{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 20px;
+    font-weight: 600;
+    margin:0;
+    letter-spacing: -0.01em;
+  }
+  .section-head .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-dimmer);
+    letter-spacing: 0.06em;
+  }
+  section.block{ margin-bottom: 68px; }
+  section.block > p.desc{
+    color: var(--text-dim);
+    font-size: 14.5px;
+    max-width: 640px;
+    margin: -10px 0 26px;
+  }
+
+  /* ---------- timeline (signature element) ---------- */
+  .timeline-frame{
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--panel);
+    padding: 64px 36px 44px;
+    overflow-x: auto;
+  }
+  .timeline{
+    position: relative;
+    min-width: 920px;
+    height: 190px;
+  }
+  .timeline .axis{
+    position:absolute;
+    top: 50%;
+    left:0; right:0;
+    height:1px;
+    background: linear-gradient(90deg, transparent, var(--border) 4%, var(--border) 96%, transparent);
+  }
+  .tl-node{
+    position:absolute;
+    top:50%;
+    transform: translate(-50%, -50%);
+    width:10px; height:10px;
+    border-radius:50%;
+    background: var(--dotcolor);
+    box-shadow: 0 0 0 4px rgba(10,14,26,1), 0 0 12px var(--dotcolor);
+  }
+  .tl-stem{
+    position:absolute;
+    left:50%;
+    width:1px;
+    background: var(--dotcolor);
+    opacity: 0.55;
+  }
+  .tl-label{
+    position:absolute;
+    left:50%;
+    transform: translateX(-50%);
+    text-align:center;
+    white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .tl-label .lang{
+    font-size: 13px;
+    font-weight:600;
+    color: var(--text);
+  }
+  .tl-label .yr{
+    font-size: 11px;
+    color: var(--text-dimmer);
+    margin-top:2px;
+  }
+  .tl-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 18px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--text-dim);
+  }
+  .tl-legend span{ display:inline-flex; align-items:center; gap:7px; }
+  .tl-legend i{ width:8px; height:8px; border-radius:2px; display:inline-block; }
+
+  /* ---------- track panels ---------- */
+  details.track{
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--panel);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  details.track[open]{ background: var(--panel-2); }
+  details.track summary{
+    list-style:none;
+    cursor:pointer;
+    padding: 22px 26px;
+    display:flex;
+    align-items:center;
+    gap: 16px;
+    position: relative;
+  }
+  details.track summary::-webkit-details-marker{ display:none; }
+  .track-bar{
+    width:5px;
+    align-self:stretch;
+    border-radius: 3px;
+    background: var(--accent);
+    flex-shrink:0;
+  }
+  .track-id{
+    font-family:'IBM Plex Mono',monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    min-width: 68px;
+  }
+  .track-title{
+    font-size: 16.5px;
+    font-weight: 600;
+    flex: 1;
+  }
+  .track-title small{
+    display:block;
+    font-weight:400;
+    font-size: 12.5px;
+    color: var(--text-dimmer);
+    margin-top: 3px;
+  }
+  .track-count{
+    font-family:'IBM Plex Mono',monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align:right;
+  }
+  .chevron{
+    font-family:'IBM Plex Mono',monospace;
+    color: var(--text-dimmer);
+    transition: transform 0.2s ease;
+    font-size: 13px;
+  }
+  details[open] .chevron{ transform: rotate(90deg); }
+
+  .cards{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    padding: 4px 26px 26px;
+  }
+
+  .card{
+    position:relative;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 16px 14px;
+    background: rgba(255,255,255,0.015);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover{
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom: 10px;
+  }
+  .card-lang{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size: 15px;
+  }
+  .card-scale{
+    font-size: 10.5px;
+    font-family:'IBM Plex Mono',monospace;
+    color: var(--text-dimmer);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2px 8px;
+  }
+  .card-stats{
+    display:flex;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .card-stats b{ color: var(--text); font-weight:600; }
+
+  .gotcha{
+    font-size: 12.5px;
+    color: var(--text-dim);
+    border-top: 1px dashed var(--border);
+    padding-top: 10px;
+    margin-top: 4px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease, padding-top 0.25s ease;
+  }
+  .card:hover .gotcha{
+    max-height: 120px;
+    opacity: 1;
+  }
+  .gotcha .tag-line{
+    font-family:'IBM Plex Mono',monospace;
+    font-size: 10.5px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 5px;
+    display:block;
+  }
+  .gotcha code{
+    background: rgba(255,255,255,0.06);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 11.5px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; }
+  }
+
+  footer{
+    margin-top: 40px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--text-dimmer);
+    font-family:'IBM Plex Mono',monospace;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">curriculum index &mdash; v1</div>
+    <h1>CODE ARENA<span>.</span></h1>
+    <p class="sub">
+      13개 프로그래밍 언어, <strong>1,616문제</strong>. 모든 정답은 실제 컴파일러·인터프리터로
+      직접 실행해 검증했습니다. 같은 개념(참조 전달, switch fall-through, null 처리 등)이
+      언어마다 어떻게 다르게 동작하는지 비교하며 배우는 퀴즈 기반 커리큘럼입니다.
+    </p>
+    <div class="specsheet">
+      <div><div class="spec-num">13</div><div class="spec-label">프로그래밍 언어</div></div>
+      <div><div class="spec-num">1,616</div><div class="spec-label">총 문제 수</div></div>
+      <div><div class="spec-num">6</div><div class="spec-label">커리큘럼 구획</div></div>
+      <div><div class="spec-num">53yr</div><div class="spec-label">1957 FORTRAN → 2010 Rust</div></div>
+    </div>
+  </header>
+
+  <!-- ===================== TIMELINE (signature) ===================== -->
+  <section class="block">
+    <div class="section-head">
+      <h2>언어 연대표</h2>
+      <span class="tag">// 실제 출시 연도 기준, 트랙별 색상</span>
+    </div>
+    <p class="desc">
+      이 커리큘럼이 다루는 13개 언어는 사실 반세기가 넘는 컴퓨팅 역사를 관통합니다.
+      1957년의 FORTRAN에서 시작해 2010년의 Rust까지 — 트랙 D(레거시)의 언어들이
+      트랙 A(시스템)의 조상이라는 걸 한눈에 볼 수 있습니다.
+    </p>
+    <div class="timeline-frame">
+      <div class="timeline" id="timeline"></div>
+      <div class="tl-legend">
+        <span><i style="background:var(--c-legacy)"></i>트랙 D · 레거시/역사</span>
+        <span><i style="background:var(--c-system)"></i>트랙 A · 시스템/저수준</span>
+        <span><i style="background:var(--c-oop)"></i>트랙 B · 객체지향/엔터프라이즈</span>
+        <span><i style="background:var(--c-script)"></i>트랙 C · 스크립트/실무</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOUNDATION ===================== -->
+  <section class="block">
+    <div class="section-head">
+      <h2>커리큘럼 구성</h2>
+      <span class="tag">// 클릭해서 각 구획 펼쳐보기</span>
+    </div>
+
+    <details class="track" open style="--accent: var(--c-found);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">FOUND</div>
+        <div class="track-title">Foundation<small>프로그래밍 언어 이전에, 컴퓨터처럼 생각하기</small></div>
+        <div class="track-count">14 유닛 · 84문제</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <div class="cards">
+        <div class="card">
+          <div class="card-top"><span class="card-lang">Stage 0 · 컴퓨터적 사고</span><span class="card-scale">6유닛</span></div>
+          <div class="card-stats"><span><b>36</b>문제</span></div>
+          <div class="gotcha"><span class="tag-line">다루는 내용</span>알고리즘, 변수/조건문 개념, 반복문 개념, 함수 개념, 입출력, 디버깅 사고 — 특정 언어 문법 없이 사고방식부터 시작</div>
+        </div>
+        <div class="card">
+          <div class="card-top"><span class="card-lang">Stage 1 · C 온보딩</span><span class="card-scale">8유닛</span></div>
+          <div class="card-stats"><span><b>48</b>문제</span></div>
+          <div class="gotcha"><span class="tag-line">다루는 내용</span>컴파일 과정, 자료형, 조건문, 반복문, 배열, 함수, 포인터, 문자열 — 이후 트랙 A로 자연스럽게 이어짐</div>
+        </div>
+      </div>
+    </details>
+
+    <!-- ===================== TRACK A ===================== -->
+    <details class="track" style="--accent: var(--c-system);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">TRACK A</div>
+        <div class="track-title">시스템 / 저수준<small>메모리를 직접 다루는 언어들 — C → C++ → Rust</small></div>
+        <div class="track-count">56 유닛 · 335문제</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <div class="cards" id="cards-a"></div>
+    </details>
+
+    <!-- ===================== TRACK B ===================== -->
+    <details class="track" style="--accent: var(--c-oop);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">TRACK B</div>
+        <div class="track-title">객체지향 / 엔터프라이즈<small>기업용 애플리케이션 언어들 — VB → C# → Java</small></div>
+        <div class="track-count">72 유닛 · 431문제</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <div class="cards" id="cards-b"></div>
+    </details>
+
+    <!-- ===================== TRACK C ===================== -->
+    <details class="track" style="--accent: var(--c-script);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">TRACK C</div>
+        <div class="track-title">스크립트 / 실무<small>웹과 자동화의 언어들 — Python → JavaScript → PHP</small></div>
+        <div class="track-count">64 유닛 · 383문제</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <div class="cards" id="cards-c"></div>
+    </details>
+
+    <!-- ===================== TRACK D ===================== -->
+    <details class="track" style="--accent: var(--c-legacy);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">TRACK D</div>
+        <div class="track-title">레거시 / 역사<small>지금의 언어들이 태어난 뿌리 — BASIC · Pascal · FORTRAN · COBOL</small></div>
+        <div class="track-count">48 유닛 · 287문제</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <div class="cards" id="cards-d"></div>
+    </details>
+
+    <!-- ===================== MODULES ===================== -->
+    <details class="track" style="--accent: var(--c-module);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">MODULE</div>
+        <div class="track-title">자료구조 &amp; 알고리즘<small>언어에 상관없이 알아야 할 것 — Python으로 구현·검증</small></div>
+        <div class="track-count">16 유닛 · 96문제</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <div class="cards" id="cards-m"></div>
+    </details>
+
+  </section>
+
+  <footer>
+    <span>CODE ARENA — linguawalk/Code-Arena</span>
+    <span>모든 예제는 실제 컴파일·실행으로 검증됨</span>
+  </footer>
+
+</div>
+
+<script>
+// ---------------- Timeline data (실제 언어 출시 연도) ----------------
+const TL = [
+  { lang: 'FORTRAN',     year: 1957, track: 'legacy' },
+  { lang: 'COBOL',       year: 1959, track: 'legacy' },
+  { lang: 'BASIC',       year: 1964, track: 'legacy' },
+  { lang: 'Pascal',      year: 1970, track: 'legacy' },
+  { lang: 'C',           year: 1972, track: 'system' },
+  { lang: 'C++',         year: 1985, track: 'system' },
+  { lang: 'Python',      year: 1991, track: 'script' },
+  { lang: 'Visual Basic',year: 1991, track: 'oop' },
+  { lang: 'Java',        year: 1995, track: 'oop' },
+  { lang: 'JavaScript',  year: 1995, track: 'script' },
+  { lang: 'PHP',         year: 1995, track: 'script' },
+  { lang: 'C#',          year: 2000, track: 'oop' },
+  { lang: 'Rust',        year: 2010, track: 'system' },
+];
+const COLORS = {
+  legacy: 'var(--c-legacy)',
+  system: 'var(--c-system)',
+  oop:    'var(--c-oop)',
+  script: 'var(--c-script)',
+};
+const YMIN = 1955, YMAX = 2015;
+
+const tlEl = document.getElementById('timeline');
+tlEl.innerHTML = '<div class="axis"></div>';
+
+// stagger overlapping years alternately above/below
+const seen = {};
+TL.forEach((item, i) => {
+  const pct = ((item.year - YMIN) / (YMAX - YMIN)) * 100;
+  const key = item.year;
+  seen[key] = (seen[key] || 0);
+  const slot = seen[key];
+  seen[key]++;
+  const above = (slot % 2 === 0);
+  const stemLen = 46 + Math.floor(slot / 2) * 46;
+  const color = COLORS[item.track];
+
+  const node = document.createElement('div');
+  node.className = 'tl-node';
+  node.style.left = pct + '%';
+  node.style.setProperty('--dotcolor', color);
+  tlEl.appendChild(node);
+
+  const stem = document.createElement('div');
+  stem.className = 'tl-stem';
+  stem.style.left = pct + '%';
+  stem.style.setProperty('--dotcolor', color);
+  stem.style.height = stemLen + 'px';
+  stem.style.top = above ? ('calc(50% - ' + stemLen + 'px)') : '50%';
+  tlEl.appendChild(stem);
+
+  const label = document.createElement('div');
+  label.className = 'tl-label';
+  label.style.left = pct + '%';
+  if (above) {
+    label.style.top = 'calc(50% - ' + (stemLen + 34) + 'px)';
+  } else {
+    label.style.top = 'calc(50% + ' + (stemLen + 10) + 'px)';
+  }
+  label.innerHTML = '<div class="lang" style="color:'+color+'">'+item.lang+'</div><div class="yr">'+item.year+'</div>';
+  tlEl.appendChild(label);
+});
+
+// ---------------- Track card data ----------------
+function card({lang, levels, units, q, gotchaTag, gotchaHtml}) {
+  return `<div class="card">
+    <div class="card-top">
+      <span class="card-lang">${lang}</span>
+      <span class="card-scale">${levels}레벨</span>
+    </div>
+    <div class="card-stats"><span><b>${units}</b>유닛</span><span><b>${q}</b>문제</span></div>
+    <div class="gotcha"><span class="tag-line">${gotchaTag}</span>${gotchaHtml}</div>
+  </div>`;
+}
+
+document.getElementById('cards-a').innerHTML = [
+  card({lang:'C', levels:6, units:24, q:143, gotchaTag:'발견한 함정', gotchaHtml:'포인터 산술, 이중 포인터, <code>%d</code> 등 포맷 지정자 불일치 시 정의되지 않은 동작'}),
+  card({lang:'C++', levels:4, units:16, q:96, gotchaTag:'발견한 함정', gotchaHtml:'<code>virtual</code> 없이는 다형성이 동작하지 않음 — Java와 달리 기본이 정적 바인딩'}),
+  card({lang:'Rust', levels:4, units:16, q:96, gotchaTag:'발견한 함정', gotchaHtml:'소유권 이동(move)과 대여 검사기 — 컴파일 시점에 메모리 안전성 강제'}),
+].join('');
+
+document.getElementById('cards-b').innerHTML = [
+  card({lang:'Visual Basic', levels:6, units:24, q:143, gotchaTag:'발견한 함정', gotchaHtml:'<code>Dim nums(4)</code>는 5개 요소 — 인덱스 기반 크기 지정, C#의 개수 기반과 반대'}),
+  card({lang:'C#', levels:6, units:24, q:144, gotchaTag:'발견한 함정', gotchaHtml:'switch fall-through는 <code>CS0163</code> 컴파일 오류 — C 계열과 정반대 규칙'}),
+  card({lang:'Java', levels:6, units:24, q:144, gotchaTag:'발견한 함정', gotchaHtml:'메서드가 기본적으로 오버라이드 가능, <code>HashMap.get()</code>은 예외 대신 null 반환'}),
+].join('');
+
+document.getElementById('cards-c').innerHTML = [
+  card({lang:'Python', levels:6, units:24, q:143, gotchaTag:'발견한 함정', gotchaHtml:'가변 기본값 매개변수 함정, <code>-7 // 2 == -4</code> (음의 무한대 방향 내림)'}),
+  card({lang:'JavaScript', levels:6, units:24, q:144, gotchaTag:'발견한 함정', gotchaHtml:'<code>typeof null === "object"</code>, <code>10/0 === Infinity</code> (예외 없음)'}),
+  card({lang:'PHP', levels:4, units:16, q:96, gotchaTag:'발견한 함정', gotchaHtml:'문자열 연결은 <code>.</code> (+가 아님), PHP 8에서 <code>"Hello"+5</code>는 TypeError'}),
+].join('');
+
+document.getElementById('cards-d').innerHTML = [
+  card({lang:'BASIC', levels:3, units:12, q:71, gotchaTag:'발견한 함정', gotchaHtml:'<code>ON N GOTO</code> 범위 초과 시 조용히 넘어가지 않고 실제로 런타임 오류 발생'}),
+  card({lang:'Pascal', levels:3, units:12, q:72, gotchaTag:'발견한 함정', gotchaHtml:'<code>;</code>는 종결자가 아닌 구분자 — then절 뒤 세미콜론이 if문을 조기 종료시킴'}),
+  card({lang:'FORTRAN', levels:3, units:12, q:72, gotchaTag:'발견한 함정', gotchaHtml:'<code>z = x/y</code>가 실수 변수여도 정수 나눗셈이 먼저 계산됨; 기본이 참조 전달'}),
+  card({lang:'COBOL', levels:3, units:12, q:72, gotchaTag:'발견한 함정', gotchaHtml:'<code>REDEFINES</code>로 같은 메모리를 다른 구조로 재해석 — C의 union과 유사'}),
+].join('');
+
+document.getElementById('cards-m').innerHTML = [
+  card({lang:'배열/리스트', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'Big-O 표기법, 배열 vs 연결 리스트 — 실제 시간 측정으로 이론 검증'}),
+  card({lang:'스택/큐', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'LIFO vs FIFO, <code>list.pop(0)</code>이 <code>deque.popleft()</code>보다 3500배 느림'}),
+  card({lang:'정렬', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'버블/선택/삽입/병합/퀵 정렬 — O(n²)에서 O(n log n)까지'}),
+  card({lang:'탐색/트리/해시', levels:1, units:4, q:24, gotchaTag:'핵심 개념', gotchaHtml:'정렬 안 된 배열에 이진 탐색 쓰면 조용히 틀린 결과 반환'}),
+].join('');
+</script>
+</body>
+</html>
