@@ -509,11 +509,23 @@
       <div class="cards" id="cards-m"></div>
     </details>
 
+    <!-- ===================== GLOBAL CERTIFICATIONS ===================== -->
+    <details class="track" style="--accent: var(--c-oop);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">TIER 2</div>
+        <div class="track-title">글로벌 자격증(객관식)<small>Oracle·Microsoft·Amazon·Google·Cisco·LPI — 공식 시험 영역 기준</small></div>
+        <div class="track-count">준비 중</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <div class="cards" id="cards-cert"></div>
+    </details>
+
   </section>
 
   <footer>
     <span>CODE ARENA — linguawalk/Code-Arena</span>
-    <span>모든 예제는 실제 컴파일·실행으로 검증됨</span>
+    <span>모든 예제는 실제 컴파일·실행 또는 공식 문서로 검증됨</span>
   </footer>
 
 </div>
@@ -626,6 +638,15 @@ document.getElementById('cards-m').innerHTML = [
   card({lang:'스택/큐', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'LIFO vs FIFO, <code>list.pop(0)</code>이 <code>deque.popleft()</code>보다 3500배 느림'}),
   card({lang:'정렬', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'버블/선택/삽입/병합/퀵 정렬 — O(n²)에서 O(n log n)까지'}),
   card({lang:'탐색/트리/해시', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'정렬 안 된 배열에 이진 탐색 쓰면 조용히 틀린 결과 반환'}),
+].join('');
+
+document.getElementById('cards-cert').innerHTML = [
+  card({lang:'Amazon (AWS)', levels:1, units:4, q:6, href:'browse.html?type=certvendor&cert=cert_aws', gotchaTag:'현재 상태', gotchaHtml:'CLF-C02(Cloud Practitioner) Level 1 공개 — 공동 책임 모델, Well-Architected 등 실제 시험 출제 영역 기준'}),
+  card({lang:'Oracle', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_oracle', gotchaTag:'현재 상태', gotchaHtml:'Java OCP · SQL Associate · PL/SQL — 준비 중'}),
+  card({lang:'Microsoft (Azure)', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_microsoft', gotchaTag:'현재 상태', gotchaHtml:'AZ-900 · AZ-204 — 준비 중'}),
+  card({lang:'Google Cloud', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_google', gotchaTag:'현재 상태', gotchaHtml:'Cloud Digital Leader · Professional Cloud Architect — 준비 중'}),
+  card({lang:'Cisco', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_cisco', gotchaTag:'현재 상태', gotchaHtml:'CCNA(객관식 부분) — 준비 중'}),
+  card({lang:'LPI', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_lpi', gotchaTag:'현재 상태', gotchaHtml:'LPIC-1 — 준비 중'}),
 ].join('');
 </script>
 </body>

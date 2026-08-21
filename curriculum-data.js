@@ -87,6 +87,60 @@ const CURRICULUM = {
     }
   ],
 
+  // Tier 2: 글로벌 벤더 자격증 (객관식 전용) — 코딩 실습 없이 player.html/browse.html을 그대로 재사용
+  certifications: [
+    {
+      key: "cert_aws",
+      title: "Amazon (AWS)",
+      subtitle: "클라우드 서비스 자격증",
+      accent: "var(--c-oop)",
+      exams: [
+        {
+          key: "clf-c02",
+          name: "AWS Certified Cloud Practitioner (CLF-C02)",
+          path: "certifications/aws/clf-c02",
+          levels: 4,
+          levelNames: ["클라우드 개념", "보안·컴플라이언스", "핵심 서비스", "요금·청구"]
+        }
+      ]
+    },
+    {
+      key: "cert_oracle",
+      title: "Oracle",
+      subtitle: "Java·데이터베이스 자격증",
+      accent: "var(--c-legacy)",
+      exams: []
+    },
+    {
+      key: "cert_microsoft",
+      title: "Microsoft (Azure)",
+      subtitle: "클라우드 서비스 자격증",
+      accent: "var(--c-script)",
+      exams: []
+    },
+    {
+      key: "cert_google",
+      title: "Google Cloud",
+      subtitle: "클라우드 서비스 자격증",
+      accent: "var(--c-system)",
+      exams: []
+    },
+    {
+      key: "cert_cisco",
+      title: "Cisco",
+      subtitle: "네트워크 자격증",
+      accent: "var(--c-module)",
+      exams: []
+    },
+    {
+      key: "cert_lpi",
+      title: "LPI",
+      subtitle: "리눅스 자격증",
+      accent: "var(--c-found)",
+      exams: []
+    }
+  ],
+
   // 유닛 파일 이름 규칙: 항상 4유닛/레벨, level{N}_unit{NN}.json
   UNITS_PER_LEVEL: 4,
 
