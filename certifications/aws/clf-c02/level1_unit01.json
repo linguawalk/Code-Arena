@@ -1,1 +1,99 @@
-
+{
+  "language": "n/a",
+  "category": "global_certification",
+  "vendor": "aws",
+  "exam": "clf-c02",
+  "level": 1,
+  "unit": 1,
+  "unit_title": "클라우드 개념과 공동 책임 모델",
+  "questions": [
+    {
+      "id": "aws_clf_l1_u1_q001",
+      "type": "scenario_choice",
+      "code": null,
+      "prompt_ko": "AWS 공동 책임 모델(Shared Responsibility Model)에서, \"보안 OF the cloud(클라우드 자체의 보안)\"은 누구의 책임인가요?",
+      "prompt_en": "In the AWS Shared Responsibility Model, who is responsible for 'security OF the cloud'?",
+      "options": ["AWS", "고객(Customer)", "AWS와 고객이 절반씩", "제3자 감사기관"],
+      "answer": 0,
+      "explanation_ko": "AWS는 데이터센터, 하드웨어, 네트워크, 가상화 인프라 등 '클라우드 자체'의 보안을 책임집니다. 고객은 그 위에서 자신이 사용하는 데이터, 애플리케이션, 접근 권한 설정 등 '클라우드 안의(IN the cloud)' 보안을 책임집니다.",
+      "explanation_en": "AWS is responsible for the security of the underlying infrastructure (data centers, hardware, network, virtualization) — 'security OF the cloud'. The customer is responsible for security 'IN the cloud' — their data, applications, and access configurations.",
+      "concept_tags": ["shared_responsibility_model"],
+      "difficulty": "intro"
+    },
+    {
+      "id": "aws_clf_l1_u1_q002",
+      "type": "scenario_choice",
+      "code": null,
+      "prompt_ko": "회사가 Amazon EC2 인스턴스에 웹 애플리케이션을 배포했습니다. 공동 책임 모델에 따르면, 다음 중 고객(customer)의 책임인 것은?",
+      "prompt_en": "A company deploys a web application on an Amazon EC2 instance. Under the Shared Responsibility Model, which of the following is the customer's responsibility?",
+      "options": [
+        "EC2 게스트 운영체제(OS)에 보안 패치 적용",
+        "데이터센터의 물리적 출입 통제",
+        "가상화 계층(하이퍼바이저) 보안 유지",
+        "글로벌 네트워크 인프라 유지보수"
+      ],
+      "answer": 0,
+      "explanation_ko": "EC2는 IaaS(인프라형 서비스)라서, 고객이 직접 제어하는 게스트 OS·미들웨어·애플리케이션·데이터 보안은 고객 책임입니다. 데이터센터 물리 보안, 하이퍼바이저, 네트워크 인프라는 모두 AWS의 책임입니다.",
+      "explanation_en": "EC2 is IaaS, so the customer is responsible for securing what they control directly: the guest OS, middleware, applications, and data. Physical data center security, the hypervisor, and global network infrastructure remain AWS's responsibility.",
+      "concept_tags": ["shared_responsibility_model", "ec2"],
+      "difficulty": "practice"
+    },
+    {
+      "id": "aws_clf_l1_u1_q003",
+      "type": "scenario_choice",
+      "code": null,
+      "prompt_ko": "AWS 데이터센터에 대한 물리적 접근 통제는 누구의 책임인가요?",
+      "prompt_en": "Who is responsible for controlling physical access to AWS data centers?",
+      "options": ["AWS", "고객(Customer)", "고객이 지정한 위탁업체", "정부 기관"],
+      "answer": 0,
+      "explanation_ko": "고객은 AWS 데이터센터에 물리적으로 접근할 수 없습니다. 데이터센터 시설의 출입 통제, 화재 방지, 전력 공급 등 물리적 보안은 전적으로 AWS의 책임입니다.",
+      "explanation_en": "Customers never have physical access to AWS data centers. Physical security — including access control, fire suppression, and power — is entirely AWS's responsibility.",
+      "concept_tags": ["shared_responsibility_model"],
+      "difficulty": "intro"
+    },
+    {
+      "id": "aws_clf_l1_u1_q004",
+      "type": "scenario_choice",
+      "code": null,
+      "prompt_ko": "AWS Well-Architected Framework은 총 몇 개의 기둥(pillar)으로 구성되어 있나요?",
+      "prompt_en": "How many pillars make up the AWS Well-Architected Framework?",
+      "options": ["4개", "5개", "6개", "7개"],
+      "answer": 2,
+      "explanation_ko": "AWS Well-Architected Framework은 운영 우수성(Operational Excellence), 보안(Security), 안정성(Reliability), 성능 효율성(Performance Efficiency), 비용 최적화(Cost Optimization), 지속가능성(Sustainability)까지 총 6개 기둥으로 구성됩니다.",
+      "explanation_en": "The AWS Well-Architected Framework consists of 6 pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability.",
+      "concept_tags": ["well_architected_framework"],
+      "difficulty": "practice"
+    },
+    {
+      "id": "aws_clf_l1_u1_q005",
+      "type": "scenario_choice",
+      "code": null,
+      "prompt_ko": "서버를 직접 프로비저닝·관리하지 않고, 코드가 실행될 때만 비용을 지불하고 싶은 회사가 있습니다. 어떤 컴퓨팅 방식이 가장 적합한가요?",
+      "prompt_en": "A company wants to avoid provisioning or managing servers directly, and only pay when their code actually runs. Which compute model best fits this need?",
+      "options": ["Amazon EC2 (온디맨드 인스턴스)", "AWS Lambda (서버리스)", "Amazon EC2 (예약 인스턴스)", "AWS Outposts"],
+      "answer": 1,
+      "explanation_ko": "AWS Lambda는 서버를 프로비저닝하거나 관리할 필요가 없는 서버리스 컴퓨팅 서비스로, 코드가 실제로 실행된 시간에 대해서만 비용이 청구됩니다. EC2는 인스턴스를 직접 프로비저닝하고 계속 관리해야 하는 방식입니다.",
+      "explanation_en": "AWS Lambda is a serverless compute service that requires no server provisioning or management, and you're billed only for the actual compute time your code uses. EC2, by contrast, requires you to provision and continuously manage instances.",
+      "concept_tags": ["ec2", "lambda", "serverless"],
+      "difficulty": "practice"
+    },
+    {
+      "id": "aws_clf_l1_u1_q006",
+      "type": "scenario_choice",
+      "code": null,
+      "prompt_ko": "AWS 리전(Region)과 가용 영역(Availability Zone, AZ)의 관계를 가장 정확히 설명한 것은?",
+      "prompt_en": "Which statement most accurately describes the relationship between an AWS Region and an Availability Zone (AZ)?",
+      "options": [
+        "하나의 리전은 하나 이상의 물리적으로 분리된 가용 영역으로 구성된다",
+        "하나의 가용 영역이 여러 개의 리전을 포함한다",
+        "리전과 가용 영역은 동일한 개념이다",
+        "가용 영역은 리전과 무관한 독립적인 글로벌 서비스 단위이다"
+      ],
+      "answer": 0,
+      "explanation_ko": "리전은 특정 지리적 영역(예: 서울, 도쿄)을 뜻하고, 그 안에 물리적으로 분리된(별도의 전력·냉각·네트워크를 가진) 여러 개의 가용 영역이 존재합니다. 가용 영역을 여러 개 활용하면 한 시설에 장애가 생겨도 다른 가용 영역으로 서비스를 유지할 수 있어 고가용성을 확보할 수 있습니다.",
+      "explanation_en": "A Region is a specific geographic area (e.g., Seoul, Tokyo) that contains multiple physically separated Availability Zones, each with independent power, cooling, and networking. Using multiple AZs enables high availability, since a failure in one facility doesn't take down the others.",
+      "concept_tags": ["region", "availability_zone"],
+      "difficulty": "practice"
+    }
+  ]
+}
