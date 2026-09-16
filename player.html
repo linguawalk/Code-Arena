@@ -154,6 +154,49 @@
   .opt.wrong .letter{ color: var(--bad); }
   .opt.dim{ opacity: 0.45; }
 
+  /* ---------- fill-in-the-blank (typed answer) ---------- */
+  .fillblank-row{
+    display:flex;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .fillblank-input{
+    flex: 1;
+    font-family:'IBM Plex Mono',monospace;
+    font-size: 14.5px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: rgba(23,32,56,0.02);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.12s ease;
+  }
+  .fillblank-input:focus{ border-color: var(--accent); }
+  .fillblank-input:disabled{ opacity: 0.7; cursor:default; }
+  .fillblank-input.correct{ border-color: var(--good); background: rgba(21,128,61,0.08); }
+  .fillblank-input.wrong{ border-color: var(--bad); background: rgba(220,38,38,0.08); }
+  button.submit-answer{
+    font-family:'IBM Plex Mono',monospace;
+    background: var(--accent);
+    color:#ffffff;
+    border:none;
+    border-radius: 9px;
+    padding: 0 20px;
+    font-size: 13.5px;
+    font-weight:600;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  button.submit-answer:hover:not(:disabled){ filter: brightness(1.08); }
+  button.submit-answer:disabled{ opacity:0.35; cursor:default; }
+  .correct-answer-line{
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  .correct-answer-line b{ color: var(--good); font-family:'IBM Plex Mono',monospace; }
+
   .explain{
     margin-top: 18px;
     padding-top: 16px;
@@ -243,6 +286,8 @@
 
   @media (max-width: 560px){
     .qcard{ padding: 20px 18px 18px; }
+    .fillblank-row{ flex-direction:column; }
+    button.submit-answer{ padding: 12px 20px; }
   }
 </style>
 </head>
@@ -314,6 +359,30 @@ function buildQueue(questions) {
   return queue;
 }
 
+// 이 문제가 "진짜 단답형(타이핑 입력)"인지 판별.
+// expected_answers(배열) 또는 expected_answer(문자열) 필드가 있으면 단답형,
+// 없으면(기존 콘텐츠 전부) 기존 방식대로 객관식(options/answer)으로 처리.
+function isShortAnswer(q) {
+  return Array.isArray(q.expected_answers) || typeof q.expected_answer === 'string';
+}
+
+function getAcceptedAnswers(q) {
+  if (Array.isArray(q.expected_answers)) return q.expected_answers;
+  if (typeof q.expected_answer === 'string') return [q.expected_answer];
+  return [];
+}
+
+// 채점용 정규화: 앞뒤 공백 제거, 대소문자 무시, 연속 공백을 하나로.
+// (숫자/영단어/짧은 구절 위주의 단답형에 적합한 관대한 비교 기준)
+function normalizeAnswer(s) {
+  return String(s).trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function checkShortAnswer(userInput, q) {
+  const norm = normalizeAnswer(userInput);
+  return getAcceptedAnswers(q).some(a => normalizeAnswer(a) === norm);
+}
+
 let queue = [];
 let idx = 0;
 let score = 0;
@@ -345,6 +414,24 @@ function renderQuestion() {
   const promptText = q.prompt_ko || q.prompt_en || '';
   const tags = (q.concept_tags || []).map(t => `<span>${t}</span>`).join('');
   const letters = ['A', 'B', 'C', 'D', 'E'];
+  const shortAnswer = isShortAnswer(q);
+
+  const answerAreaHtml = shortAnswer
+    ? `
+      <div class="fillblank-row">
+        <input type="text" class="fillblank-input" id="fbInput" placeholder="정답을 입력하세요" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button class="submit-answer" id="fbSubmit">확인</button>
+      </div>
+    `
+    : `
+      <div class="options">
+        ${q.options.map((opt, i) => `
+          <button class="opt" data-i="${i}">
+            <span class="letter">${letters[i] || i}</span><span>${escapeHtml(opt)}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
 
   app.innerHTML = `
     <div class="meta">
@@ -358,15 +445,10 @@ function renderQuestion() {
       </div>
       ${codeHtml}
       <div class="prompt">${escapeHtml(promptText)}</div>
-      <div class="options">
-        ${q.options.map((opt, i) => `
-          <button class="opt" data-i="${i}">
-            <span class="letter">${letters[i] || i}</span><span>${escapeHtml(opt)}</span>
-          </button>
-        `).join('')}
-      </div>
+      ${answerAreaHtml}
       <div class="explain" id="explain">
         <div class="verdict" id="verdict"></div>
+        <div class="correct-answer-line" id="correctAnswerLine" style="display:none;"></div>
         <div id="explainText"></div>
         <div class="tags">${tags}</div>
       </div>
@@ -376,6 +458,24 @@ function renderQuestion() {
     </div>
   `;
 
+  if (shortAnswer) {
+    wireShortAnswer(q);
+  } else {
+    wireMultipleChoice(q);
+  }
+
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    idx++;
+    if (idx < queue.length) {
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      renderResult();
+    }
+  });
+}
+
+function wireMultipleChoice(q) {
   const buttons = app.querySelectorAll('.opt');
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -392,24 +492,53 @@ function renderQuestion() {
         else b.classList.add('dim');
       });
 
-      const verdict = document.getElementById('verdict');
-      verdict.textContent = isCorrect ? '정답입니다' : '오답입니다';
-      verdict.className = 'verdict ' + (isCorrect ? 'ok' : 'no');
-      document.getElementById('explainText').textContent = q.explanation_ko || q.explanation_en || '';
-      document.getElementById('explain').classList.add('show');
-      document.getElementById('nextBtn').disabled = false;
+      finishAnswer(isCorrect, q);
     });
   });
+}
 
-  document.getElementById('nextBtn').addEventListener('click', () => {
-    idx++;
-    if (idx < queue.length) {
-      renderQuestion();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      renderResult();
+function wireShortAnswer(q) {
+  const input = document.getElementById('fbInput');
+  const submitBtn = document.getElementById('fbSubmit');
+  let submitted = false;
+
+  function submit() {
+    if (submitted) return;
+    const val = input.value;
+    if (val.trim() === '') { input.focus(); return; }
+    submitted = true;
+
+    const isCorrect = checkShortAnswer(val, q);
+    if (isCorrect) score++;
+
+    input.disabled = true;
+    submitBtn.disabled = true;
+    input.classList.add(isCorrect ? 'correct' : 'wrong');
+
+    if (!isCorrect) {
+      const accepted = getAcceptedAnswers(q);
+      const line = document.getElementById('correctAnswerLine');
+      line.style.display = 'block';
+      line.innerHTML = '정답: <b>' + escapeHtml(accepted[0] || '') + '</b>';
     }
+
+    finishAnswer(isCorrect, q);
+  }
+
+  submitBtn.addEventListener('click', submit);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submit();
   });
+  input.focus();
+}
+
+function finishAnswer(isCorrect, q) {
+  const verdict = document.getElementById('verdict');
+  verdict.textContent = isCorrect ? '정답입니다' : '오답입니다';
+  verdict.className = 'verdict ' + (isCorrect ? 'ok' : 'no');
+  document.getElementById('explainText').textContent = q.explanation_ko || q.explanation_en || '';
+  document.getElementById('explain').classList.add('show');
+  document.getElementById('nextBtn').disabled = false;
 }
 
 function renderResult() {
