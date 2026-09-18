@@ -386,14 +386,14 @@
     <div class="eyebrow">curriculum index &mdash; v1</div>
     <h1>CODE ARENA<span>.</span></h1>
     <p class="sub">
-      13개 프로그래밍 언어, <strong>1,616문제</strong>. 모든 정답은 실제 컴파일러·인터프리터로
-      직접 실행해 검증했습니다. 같은 개념(참조 전달, switch fall-through, null 처리 등)이
-      언어마다 어떻게 다르게 동작하는지 비교하며 배우는 퀴즈 기반 커리큘럼입니다.
+      13개 프로그래밍 언어 + 5개 개념 모듈, <strong>1,910문제</strong>(퀴즈)와 16개 언어
+      <strong>603문제</strong>(직접 코드 작성)로 구성됩니다. 퀴즈는 실제 컴파일러·인터프리터로
+      직접 실행해 검증했고, 실습형은 실제 실행 결과로 채점받습니다(채점 서버는 준비 중).
     </p>
     <div class="specsheet">
-      <div><div class="spec-num">13</div><div class="spec-label">프로그래밍 언어</div></div>
-      <div><div class="spec-num">1,616</div><div class="spec-label">총 문제 수</div></div>
-      <div><div class="spec-num">6</div><div class="spec-label">커리큘럼 구획</div></div>
+      <div><div class="spec-num">16</div><div class="spec-label">프로그래밍 언어</div></div>
+      <div><div class="spec-num">1,910</div><div class="spec-label">퀴즈 문제(개념이해형)</div></div>
+      <div><div class="spec-num">603</div><div class="spec-label">실습 문제(코드 작성)</div></div>
       <div><div class="spec-num">53yr</div><div class="spec-label">1957 FORTRAN → 2010 Rust</div></div>
     </div>
   </header>
@@ -502,11 +502,27 @@
       <summary>
         <div class="track-bar"></div>
         <div class="track-id">MODULE</div>
-        <div class="track-title">자료구조 &amp; 알고리즘<small>언어에 상관없이 알아야 할 것 — Python으로 구현·검증</small></div>
-        <div class="track-count">16 유닛 · 96문제</div>
+        <div class="track-title">개념 모듈<small>자료구조·통계·DB이론·Linux·Excel/Access — 언어에 상관없이 알아야 할 것</small></div>
+        <div class="track-count">5개 모듈 · 384문제</div>
         <div class="chevron">▸</div>
       </summary>
       <div class="cards" id="cards-m"></div>
+    </details>
+
+    <!-- ===================== PRACTICE (실습형) ===================== -->
+    <details class="track" style="--accent: var(--c-system);">
+      <summary>
+        <div class="track-bar"></div>
+        <div class="track-id">PRACTICE</div>
+        <div class="track-title">실습(코드 작성)<small>보기를 고르는 게 아니라, 직접 코드를 작성하고 실제 실행 결과로 채점받습니다</small></div>
+        <div class="track-count">16개 언어 · 603문제</div>
+        <div class="chevron">▸</div>
+      </summary>
+      <p class="desc" style="padding:0 26px;margin:0 0 18px;">
+        ⚠ 실행 채점 서버가 아직 연결되지 않았습니다. 문제 열람과 코드 편집은 가능하지만,
+        실행·채점은 서버 연결 후에 가능합니다.
+      </p>
+      <div class="cards" id="cards-practice"></div>
     </details>
 
     <!-- ===================== GLOBAL CERTIFICATIONS ===================== -->
@@ -634,10 +650,30 @@ document.getElementById('cards-d').innerHTML = [
 ].join('');
 
 document.getElementById('cards-m').innerHTML = [
-  card({lang:'배열/리스트', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'Big-O 표기법, 배열 vs 연결 리스트 — 실제 시간 측정으로 이론 검증'}),
-  card({lang:'스택/큐', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'LIFO vs FIFO, <code>list.pop(0)</code>이 <code>deque.popleft()</code>보다 3500배 느림'}),
-  card({lang:'정렬', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'버블/선택/삽입/병합/퀵 정렬 — O(n²)에서 O(n log n)까지'}),
-  card({lang:'탐색/트리/해시', levels:1, units:4, q:24, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'정렬 안 된 배열에 이진 탐색 쓰면 조용히 틀린 결과 반환'}),
+  card({lang:'자료구조 & 알고리즘', levels:4, units:16, q:96, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'Big-O, 스택/큐, 정렬(버블~퀵), 이진 탐색 — 실제 시간 측정으로 이론 검증'}),
+  card({lang:'통계', levels:4, units:16, q:96, href:'browse.html?type=module&key=statistics', gotchaTag:'핵심 개념', gotchaHtml:'평균·분산부터 가설검정·p값, 베이즈 정리(16.7% 반전 사례), 심슨의 역설까지'}),
+  card({lang:'DB 이론', levels:2, units:8, q:48, href:'browse.html?type=module&key=db_theory', gotchaTag:'핵심 개념', gotchaHtml:'정규화(1NF~3NF), 기본키·외래키, 트랜잭션(ACID), 인덱스, ER 다이어그램'}),
+  card({lang:'Linux', levels:4, units:16, q:96, href:'browse.html?type=module&key=linux', gotchaTag:'핵심 개념', gotchaHtml:'파일 권한(chmod), grep/find, 프로세스·시그널(SIGTERM vs SIGKILL), 셸 스크립트'}),
+  card({lang:'Excel / Access', levels:2, units:8, q:48, href:'browse.html?type=module&key=excel_access', gotchaTag:'핵심 개념', gotchaHtml:'상대/절대참조, VLOOKUP 원리, 피벗테이블, Access 테이블·쿼리·관계'}),
+].join('');
+
+document.getElementById('cards-practice').innerHTML = [
+  card({lang:'Python', levels:6, units:24, q:49, href:'browse.html?type=practice&lang=python', gotchaTag:'구성', gotchaHtml:'기초 입출력부터 클래스·재귀·이진 탐색 트리까지'}),
+  card({lang:'C', levels:6, units:24, q:49, href:'browse.html?type=practice&lang=c', gotchaTag:'구성', gotchaHtml:'구조체·포인터로 연결 리스트·스택·큐·이진 탐색 트리를 직접 구현'}),
+  card({lang:'C++', levels:4, units:16, q:33, href:'browse.html?type=practice&lang=cpp', gotchaTag:'구성', gotchaHtml:'클래스, 상속과 virtual 다형성, 예외 처리까지'}),
+  card({lang:'Java', levels:6, units:24, q:49, href:'browse.html?type=practice&lang=java', gotchaTag:'구성', gotchaHtml:'클래스·상속부터 ArrayList/HashMap, 인터페이스, 이진 탐색 트리까지'}),
+  card({lang:'C#', levels:6, units:24, q:49, href:'browse.html?type=practice&lang=csharp', gotchaTag:'구성', gotchaHtml:'top-level statement 문법부터 List/Dictionary, 인터페이스까지'}),
+  card({lang:'JavaScript', levels:6, units:24, q:49, href:'browse.html?type=practice&lang=javascript', gotchaTag:'구성', gotchaHtml:'클래스, 배열 메서드, 덕 타이핑으로 다형성, 이진 탐색 트리까지'}),
+  card({lang:'Rust', levels:4, units:16, q:33, href:'browse.html?type=practice&lang=rust', gotchaTag:'구성', gotchaHtml:'구조체·트레이트, Option<T>과 match, 재고 관리 시스템까지'}),
+  card({lang:'PHP', levels:4, units:16, q:33, href:'browse.html?type=practice&lang=php', gotchaTag:'구성', gotchaHtml:'연관 배열, 클래스 상속, 예외 처리까지'}),
+  card({lang:'Ruby', levels:6, units:24, q:49, href:'browse.html?type=practice&lang=ruby', gotchaTag:'구성', gotchaHtml:'클래스, 모듈(믹스인)로 다형성, 재귀, 이진 탐색 트리까지'}),
+  card({lang:'R', levels:4, units:16, q:33, href:'browse.html?type=practice&lang=r', gotchaTag:'구성', gotchaHtml:'데이터프레임·통계 함수로 마무리 — R의 정체성을 살린 구성'}),
+  card({lang:'SQL', levels:4, units:16, q:33, href:'browse.html?type=practice&lang=sql', gotchaTag:'구성', gotchaHtml:'JOIN, 재귀 CTE, 윈도우 함수(RANK, 누적합)까지'}),
+  card({lang:'Visual Basic', levels:6, units:24, q:48, href:'browse.html?type=practice&lang=vb', gotchaTag:'구성', gotchaHtml:'클래스, 컬렉션, 예외 처리, 재귀·인터페이스까지'}),
+  card({lang:'BASIC', levels:3, units:12, q:24, href:'browse.html?type=practice&lang=basic', gotchaTag:'구성', gotchaHtml:'기초 입출력부터 회문·피보나치까지 — Piston 실행 검증'}),
+  card({lang:'Pascal', levels:3, units:12, q:24, href:'browse.html?type=practice&lang=pascal', gotchaTag:'구성', gotchaHtml:'기초 입출력부터 회문·피보나치까지 — Piston 실행 검증'}),
+  card({lang:'FORTRAN', levels:3, units:12, q:24, href:'browse.html?type=practice&lang=fortran', gotchaTag:'구성', gotchaHtml:'기초 입출력부터 회문·피보나치까지 — Piston 실행 검증'}),
+  card({lang:'COBOL', levels:3, units:12, q:24, href:'browse.html?type=practice&lang=cobol', gotchaTag:'구성', gotchaHtml:'기초 입출력부터 회문·피보나치까지 — Piston 실행 검증'}),
 ].join('');
 
 document.getElementById('cards-cert').innerHTML = [

@@ -84,7 +84,60 @@ const CURRICULUM = {
       accent: "var(--c-module)",
       path: "modules/data_structures_algorithms",
       levels: 4
+    },
+    {
+      key: "statistics",
+      title: "통계",
+      subtitle: "평균·분산부터 가설검정, 베이즈 정리, 심슨의 역설까지",
+      accent: "var(--c-module)",
+      path: "modules/statistics",
+      levels: 4
+    },
+    {
+      key: "db_theory",
+      title: "DB 이론",
+      subtitle: "정규화, 기본키·외래키, 트랜잭션(ACID), 인덱스",
+      accent: "var(--c-module)",
+      path: "modules/db_theory",
+      levels: 2
+    },
+    {
+      key: "linux",
+      title: "Linux",
+      subtitle: "파일 권한, 명령어, 프로세스, 셸 스크립트",
+      accent: "var(--c-module)",
+      path: "modules/linux",
+      levels: 4
+    },
+    {
+      key: "excel_access",
+      title: "Excel / Access",
+      subtitle: "함수·참조 원리부터 피벗테이블, 관계형 DB 개념까지",
+      accent: "var(--c-module)",
+      path: "modules/excel_access",
+      levels: 2
     }
+  ],
+
+  // 실습형(코드 작성) 콘텐츠 — 축 B. 개념이해형(축 A)과 달리 stdin/stdout 실행 채점이 필요하며,
+  // practice-player.html로 재생합니다(browse.html?type=practice&lang=... 에서 연결).
+  practice: [
+    { key: "python",     name: "Python",     path: "practice/python",     levels: 6 },
+    { key: "c",           name: "C",          path: "practice/c",          levels: 6 },
+    { key: "cpp",         name: "C++",        path: "practice/cpp",        levels: 4 },
+    { key: "java",        name: "Java",       path: "practice/java",       levels: 6 },
+    { key: "csharp",      name: "C#",         path: "practice/csharp",     levels: 6 },
+    { key: "javascript",  name: "JavaScript", path: "practice/javascript", levels: 6 },
+    { key: "rust",        name: "Rust",       path: "practice/rust",       levels: 4 },
+    { key: "php",         name: "PHP",        path: "practice/php",        levels: 4 },
+    { key: "ruby",        name: "Ruby",       path: "practice/ruby",       levels: 6 },
+    { key: "r",           name: "R",          path: "practice/r",          levels: 4 },
+    { key: "sql",         name: "SQL",        path: "practice/sql",        levels: 4 },
+    { key: "vb",          name: "Visual Basic", path: "practice/vb",       levels: 6 },
+    { key: "basic",       name: "BASIC",      path: "practice/basic",      levels: 3 },
+    { key: "pascal",      name: "Pascal",     path: "practice/pascal",     levels: 3 },
+    { key: "fortran",     name: "FORTRAN",    path: "practice/fortran",    levels: 3 },
+    { key: "cobol",       name: "COBOL",      path: "practice/cobol",      levels: 3 }
   ],
 
   // Tier 2: 글로벌 벤더 자격증 (객관식 전용) — 코딩 실습 없이 player.html/browse.html을 그대로 재사용
