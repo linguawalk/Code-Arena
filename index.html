@@ -387,14 +387,15 @@
     <h1>CODE ARENA<span>.</span></h1>
     <p class="sub">
       13개 프로그래밍 언어 + 5개 개념 모듈, <strong>1,910문제</strong>(퀴즈)와 16개 언어
-      <strong>603문제</strong>(직접 코드 작성)로 구성됩니다. 퀴즈는 실제 컴파일러·인터프리터로
-      직접 실행해 검증했고, 실습형은 실제 실행 결과로 채점받습니다(채점 서버는 준비 중).
+      <strong>603문제</strong>(직접 코드 작성), 그리고 8개 글로벌 벤더 자격증
+      <strong>1,152문제</strong>로 구성됩니다. 퀴즈는 실제 컴파일러·인터프리터 또는 공식 문서로
+      직접 검증했고, 실습형은 실제 실행 결과로 채점받습니다(채점 서버는 준비 중).
     </p>
     <div class="specsheet">
       <div><div class="spec-num">16</div><div class="spec-label">프로그래밍 언어</div></div>
       <div><div class="spec-num">1,910</div><div class="spec-label">퀴즈 문제(개념이해형)</div></div>
       <div><div class="spec-num">603</div><div class="spec-label">실습 문제(코드 작성)</div></div>
-      <div><div class="spec-num">53yr</div><div class="spec-label">1957 FORTRAN → 2010 Rust</div></div>
+      <div><div class="spec-num">1,152</div><div class="spec-label">글로벌 자격증 문제(8개 자격증)</div></div>
     </div>
   </header>
 
@@ -531,7 +532,7 @@
         <div class="track-bar"></div>
         <div class="track-id">TIER 2</div>
         <div class="track-title">글로벌 자격증(객관식)<small>Oracle·Microsoft·Amazon·Google·Cisco·LPI — 공식 시험 영역 기준</small></div>
-        <div class="track-count">준비 중</div>
+        <div class="track-count">8개 자격증 · 1,152문제</div>
         <div class="chevron">▸</div>
       </summary>
       <div class="cards" id="cards-cert"></div>
@@ -677,12 +678,12 @@ document.getElementById('cards-practice').innerHTML = [
 ].join('');
 
 document.getElementById('cards-cert').innerHTML = [
-  card({lang:'Amazon (AWS)', levels:1, units:4, q:6, href:'browse.html?type=certvendor&cert=cert_aws', gotchaTag:'현재 상태', gotchaHtml:'CLF-C02(Cloud Practitioner) Level 1 공개 — 공동 책임 모델, Well-Architected 등 실제 시험 출제 영역 기준'}),
-  card({lang:'Oracle', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_oracle', gotchaTag:'현재 상태', gotchaHtml:'Java OCP · SQL Associate · PL/SQL — 준비 중'}),
-  card({lang:'Microsoft (Azure)', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_microsoft', gotchaTag:'현재 상태', gotchaHtml:'AZ-900 · AZ-204 — 준비 중'}),
-  card({lang:'Google Cloud', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_google', gotchaTag:'현재 상태', gotchaHtml:'Cloud Digital Leader · Professional Cloud Architect — 준비 중'}),
-  card({lang:'Cisco', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_cisco', gotchaTag:'현재 상태', gotchaHtml:'CCNA(객관식 부분) — 준비 중'}),
-  card({lang:'LPI', levels:0, units:0, q:0, href:'browse.html?type=certvendor&cert=cert_lpi', gotchaTag:'현재 상태', gotchaHtml:'LPIC-1 — 준비 중'}),
+  card({lang:'Amazon (AWS)', levels:8, units:32, q:192, href:'browse.html?type=certvendor&cert=cert_aws', gotchaTag:'구성', gotchaHtml:'CLF-C02(Cloud Practitioner) + SAA-C03(Solutions Architect Associate) — IAM 정책 평가 순서, Multi-AZ vs 읽기 복제본 등 실무 트레이드오프까지'}),
+  card({lang:'Oracle', levels:17, units:68, q:408, href:'browse.html?type=certvendor&cert=cert_oracle', gotchaTag:'구성', gotchaHtml:'Java OCP(1Z0-829) · SQL Associate(1Z0-071) · PL/SQL Associate(1Z0-149) — 전 문제 실제 javac/sqlite3/공식오류코드로 검증'}),
+  card({lang:'Microsoft (Azure)', levels:3, units:12, q:72, href:'browse.html?type=certvendor&cert=cert_microsoft', gotchaTag:'구성', gotchaHtml:'AZ-900(Azure Fundamentals, 2026년 1월 개정판 기준) — 탄력성 vs 확장성 등 흔한 함정 포인트 포함'}),
+  card({lang:'Google Cloud', levels:6, units:24, q:144, href:'browse.html?type=certvendor&cert=cert_google', gotchaTag:'구성', gotchaHtml:'Cloud Digital Leader(2026년 8월 신설 시험 가이드 기준) — Vertex AI→Gemini Enterprise Agent Platform 개편 등 최신 반영'}),
+  card({lang:'Cisco', levels:6, units:24, q:144, href:'browse.html?type=certvendor&cert=cert_cisco', gotchaTag:'구성', gotchaHtml:'CCNA 200-301 — 서브넷 계산·최장접두사일치 등을 Python으로 직접 계산해 검증'}),
+  card({lang:'LPI', levels:8, units:32, q:192, href:'browse.html?type=certvendor&cert=cert_lpi', gotchaTag:'구성', gotchaHtml:'LPIC-1 + LPIC-2 — BIND·Apache·NFS·Samba·Postfix·OpenLDAP 등 10개 이상 서비스를 실제 설치·구동해 검증'}),
 ].join('');
 </script>
 </body>

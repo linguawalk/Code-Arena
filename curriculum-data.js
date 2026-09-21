@@ -154,6 +154,13 @@ const CURRICULUM = {
           path: "certifications/aws/clf-c02",
           levels: 4,
           levelNames: ["클라우드 개념", "보안·컴플라이언스", "핵심 서비스", "요금·청구"]
+        },
+        {
+          key: "saa-c03",
+          name: "AWS Certified Solutions Architect – Associate (SAA-C03)",
+          path: "certifications/aws/saa-c03",
+          levels: 4,
+          levelNames: ["보안 아키텍처 설계", "복원력 아키텍처 설계", "고성능 아키텍처 설계", "비용 최적화 아키텍처 설계"]
         }
       ]
     },
@@ -162,35 +169,96 @@ const CURRICULUM = {
       title: "Oracle",
       subtitle: "Java·데이터베이스 자격증",
       accent: "var(--c-legacy)",
-      exams: []
+      exams: [
+        {
+          key: "java-ocp",
+          name: "Oracle Certified Professional: Java SE 17 Developer (1Z0-829)",
+          path: "certifications/oracle/java-ocp",
+          levels: 7,
+          levelNames: ["기본 타입·형변환", "OOP 심화(상속·인터페이스·sealed)", "컬렉션과 제네릭", "함수형 프로그래밍(람다·스트림)", "예외 처리", "동시성", "I/O·모듈·JDBC"]
+        },
+        {
+          key: "sql-associate",
+          name: "Oracle Database SQL Certified Associate (1Z0-071)",
+          path: "certifications/oracle/sql-associate",
+          levels: 3,
+          levelNames: ["SELECT 기초·함수", "집계함수·JOIN·서브쿼리·집합연산자", "DML·트랜잭션·뷰·시퀀스·권한"]
+        },
+        {
+          key: "plsql-associate",
+          name: "Oracle Database Program with PL/SQL Certified Associate (1Z0-149)",
+          path: "certifications/oracle/plsql-associate",
+          levels: 7,
+          levelNames: ["PL/SQL 블록 기초", "커서 심화", "예외 처리", "프로시저와 함수", "패키지", "트리거", "동적 SQL·설계 고려사항"]
+        }
+      ]
     },
     {
       key: "cert_microsoft",
       title: "Microsoft (Azure)",
       subtitle: "클라우드 서비스 자격증",
       accent: "var(--c-script)",
-      exams: []
+      exams: [
+        {
+          key: "az-900",
+          name: "Microsoft Certified: Azure Fundamentals (AZ-900)",
+          path: "certifications/microsoft/az-900",
+          levels: 3,
+          levelNames: ["클라우드 개념", "Azure 아키텍처와 핵심 서비스", "Azure 관리·거버넌스"]
+        }
+      ]
     },
     {
       key: "cert_google",
       title: "Google Cloud",
       subtitle: "클라우드 서비스 자격증",
       accent: "var(--c-system)",
-      exams: []
+      exams: [
+        {
+          key: "cloud-digital-leader",
+          name: "Google Cloud Digital Leader",
+          path: "certifications/google/cloud-digital-leader",
+          levels: 6,
+          levelNames: ["디지털 전환", "데이터 전환", "Google Cloud AI", "인프라 현대화", "신뢰·보안", "운영"]
+        }
+      ]
     },
     {
       key: "cert_cisco",
       title: "Cisco",
       subtitle: "네트워크 자격증",
       accent: "var(--c-module)",
-      exams: []
+      exams: [
+        {
+          key: "ccna",
+          name: "Cisco Certified Network Associate (CCNA 200-301)",
+          path: "certifications/cisco/ccna",
+          levels: 6,
+          levelNames: ["네트워크 기초", "네트워크 액세스", "IP 연결성", "IP 서비스", "보안 기초", "자동화·프로그래밍"]
+        }
+      ]
     },
     {
       key: "cert_lpi",
       title: "LPI",
       subtitle: "리눅스 자격증",
       accent: "var(--c-found)",
-      exams: []
+      exams: [
+        {
+          key: "lpic-1",
+          name: "LPIC-1: Linux Administrator (101-500 / 102-500)",
+          path: "certifications/lpi/lpic-1",
+          levels: 4,
+          levelNames: ["시스템 아키텍처·패키지 관리", "GNU/Unix 명령어(텍스트 처리)", "셸 스크립팅·사용자 관리·cron", "네트워킹 기초"]
+        },
+        {
+          key: "lpic-2",
+          name: "LPIC-2: Linux Engineer (201-450 / 202-450)",
+          path: "certifications/lpi/lpic-2",
+          levels: 4,
+          levelNames: ["커널·RAID/LVM·부팅(GRUB2)", "시스템 유지보수·네트워크 진단", "DNS·웹서버·파일공유·방화벽", "이메일·LDAP·DHCP·SSH 강화"]
+        }
+      ]
     }
   ],
 
