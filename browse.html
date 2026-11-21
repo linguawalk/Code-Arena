@@ -360,6 +360,30 @@ function renderCertExam() {
   app.innerHTML = html;
 }
 
+async function renderShort() {
+  let man = null;
+  try { const r = await fetch('short/index.json'); man = r.ok ? await r.json() : null; } catch (e) {}
+  const L = man && man[LANG];
+  if (!L) { renderError('단답형 정보를 찾을 수 없습니다: ' + LANG); return; }
+  crumb.textContent = `개념 단답형 / ${L.name}`;
+  const by = {}; L.units.forEach(u => (by[u.level] = by[u.level] || []).push(u));
+  const file = x => `short/${LANG}/level${x.level}_unit${String(x.unit).padStart(2, '0')}.json`;
+  let html = `<header class="pagehead"><div class="eyebrow" style="color:var(--c-module)">개념 단답형</div><h1>${L.name}</h1>
+    <p class="sub">코드를 읽고 결과나 빈칸의 답을 직접 입력합니다. 보기가 없고, 막히면 힌트를, 틀리면 해설을 줍니다.</p></header>`;
+  Object.keys(by).sort((a, b) => a - b).forEach(lv => {
+    html += `<div class="level-block"><div class="level-head"><span class="num">LV.${lv}</span><span class="name">Level ${lv}</span></div><div class="unit-grid">`;
+    by[lv].forEach((u, i, arr) => {
+      const nx = arr[i + 1] || (by[+lv + 1] && by[+lv + 1][0]);
+      const back = encodeURIComponent(location.href);
+      const next = nx ? `&next=${encodeURIComponent('player.html?file=' + file(nx) + '&back=' + location.href)}` : '';
+      const href = `player.html?file=${encodeURIComponent(file(u))}&title=${encodeURIComponent(L.name + ' · ' + (u.title || 'Unit ' + u.unit))}&back=${back}${next}`;
+      html += `<a class="unit-link" href="${href}"><div class="u-label">UNIT ${String(u.unit).padStart(2, '0')}</div><div class="u-name">${u.title || 'Unit ' + u.unit} · ${u.n}문항</div></a>`;
+    });
+    html += `</div></div>`;
+  });
+  app.innerHTML = html;
+}
+
 function renderError(msg) {
   app.innerHTML = `<div class="error-state">⚠ ${msg}</div>`;
 }
@@ -369,7 +393,9 @@ if (typeof CURRICULUM === 'undefined') {
 } else if ((CURRICULUM.HIDDEN_TYPES || []).indexOf(TYPE) >= 0) {
   // 숨긴 유형: 검색에 잡히지 않게 하고 공개 중인 실습 목록으로 보냄
   const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m);
-  location.replace('browse.html?type=practice&lang=python');
+  location.replace('browse.html?type=short&lang=python');
+} else if (TYPE === 'short') {
+  renderShort();
 } else if (TYPE === 'language') {
   renderLanguage();
 } else if (TYPE === 'foundation') {
@@ -383,7 +409,7 @@ if (typeof CURRICULUM === 'undefined') {
 } else if (TYPE === 'certexam') {
   renderCertExam();
 } else if (!TYPE) {
-  location.replace('browse.html?type=practice&lang=python');
+  location.replace('browse.html?type=short&lang=python');
 } else {
   renderError('알 수 없는 유형입니다: ' + TYPE);
 }
