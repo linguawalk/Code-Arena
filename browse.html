@@ -368,10 +368,10 @@ async function renderShort() {
   try { const r = await fetch('short/index.json'); man = r.ok ? await r.json() : null; } catch (e) {}
   const L = man && man[LANG];
   if (!L) { renderError('단답형 정보를 찾을 수 없습니다: ' + LANG); return; }
-  crumb.textContent = `코딩 개념 / ${L.name} (${L.year})`;
+  crumb.textContent = `프로그래밍 언어 / ${L.name} (${L.year})`;
   const by = {}; L.units.forEach(u => (by[u.level] = by[u.level] || []).push(u));
   const file = x => `short/${LANG}/level${x.level}_unit${String(x.unit).padStart(2, '0')}.json`;
-  let html = `<header class="pagehead"><div class="eyebrow" style="color:var(--c-module)">코딩 개념 · ${eraOf(L.year)}</div><h1>${L.name} (${L.year})</h1>
+  let html = `<header class="pagehead"><div class="eyebrow" style="color:var(--c-module)">${eraOf(L.year)}</div><h1>${L.name} (${L.year})</h1>
     <p class="sub">코드를 읽고 결과나 빈칸의 답을 직접 입력합니다. 보기가 없고, 막히면 힌트를, 틀리면 해설을 줍니다.</p></header>`;
   Object.keys(by).sort((a, b) => a - b).forEach(lv => {
     html += `<div class="level-block"><div class="level-head"><span class="num">LV.${lv}</span><span class="name">Level ${lv}</span></div><div class="unit-grid">`;
