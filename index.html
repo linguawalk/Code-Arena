@@ -386,12 +386,12 @@
     <div class="eyebrow">curriculum index &mdash; v1</div>
     <h1>CODE ARENA<span>.</span></h1>
     <p class="sub">
-      13개 프로그래밍 언어의 <strong>843개 개념 단답형 문제</strong>로 구성됩니다. 코드를 읽고 출력 결과나
+      13개 프로그래밍 언어의 <strong>843개 코딩 개념 문제</strong>로 구성됩니다. 코드를 읽고 출력 결과나
       빈칸의 답을 직접 입력하며, 막히면 힌트를, 틀리면 해설을 줍니다. 예전 객관식 퀴즈와 자격증 문제는 비공개입니다.
     </p>
     <div class="specsheet">
       <div><div class="spec-num">13</div><div class="spec-label">프로그래밍 언어</div></div>
-      <div><div class="spec-num">843</div><div class="spec-label">개념 단답형 문제</div></div>
+      <div><div class="spec-num">843</div><div class="spec-label">코딩 개념 문제</div></div>
     </div>
   </header>
 
@@ -505,20 +505,20 @@
 
   <section class="block">
     <div class="section-head">
-      <h2>개념 단답형</h2>
+      <h2>코딩 개념</h2>
       <span class="tag">// 직접 답을 입력하는 문제</span>
     </div>
 
-  <!-- ===================== SHORT ANSWER (개념 단답형) ===================== -->
+  <!-- ===================== CODING CONCEPTS (코딩 개념) ===================== -->
     <details class="track" open style="--accent: var(--c-module);">
       <summary>
         <div class="track-bar"></div>
-        <div class="track-id">SHORT</div>
-        <div class="track-title">개념 단답형<small>코드를 읽고 결과나 빈칸의 답을 직접 입력합니다 — 보기 없이, 힌트와 해설과 함께</small></div>
+        <div class="track-id">CONCEPT</div>
+        <div class="track-title">코딩 개념<small>코드를 읽고 결과나 빈칸의 답을 직접 입력합니다 — 보기 없이, 힌트와 해설과 함께</small></div>
         <div class="track-count">13개 언어 · 843문항</div>
         <div class="chevron">▸</div>
       </summary>
-      <div class="cards" id="cards-short"></div>
+      <div id="cards-short"></div>
     </details>
 
     <!-- HIDDEN(2026-11) 실행 서버가 필요한 실습(코드 작성) 목록 — 서버 없이는 동작하지 않아 비공개. 되살리려면 주석 해제
@@ -674,22 +674,29 @@ function card({lang, levels, units, q, gotchaTag, gotchaHtml, href}) {
 ].join('');
 
 const SHORT_LANGS = [
-  {key:"c", name:"C", units:23, q:85, levels:6},
-  {key:"cpp", name:"C++", units:16, q:50, levels:4},
-  {key:"rust", name:"Rust", units:16, q:59, levels:4},
-  {key:"visual_basic", name:"Visual Basic", units:24, q:84, levels:6},
-  {key:"csharp", name:"C#", units:24, q:83, levels:6},
-  {key:"java", name:"Java", units:24, q:85, levels:6},
-  {key:"python", name:"Python", units:24, q:76, levels:6},
-  {key:"javascript", name:"JavaScript", units:24, q:77, levels:6},
-  {key:"php", name:"PHP", units:16, q:57, levels:4},
-  {key:"basic_early", name:"BASIC", units:12, q:47, levels:3},
-  {key:"pascal", name:"Pascal", units:12, q:50, levels:3},
-  {key:"fortran", name:"FORTRAN", units:12, q:49, levels:3},
-  {key:"cobol", name:"COBOL", units:12, q:41, levels:3}
+  {key:"fortran", name:"FORTRAN", year:1957, units:12, q:49, levels:3},
+  {key:"cobol", name:"COBOL", year:1959, units:12, q:41, levels:3},
+  {key:"basic_early", name:"BASIC", year:1964, units:12, q:47, levels:3},
+  {key:"pascal", name:"Pascal", year:1970, units:12, q:50, levels:3},
+  {key:"c", name:"C", year:1972, units:23, q:85, levels:6},
+  {key:"cpp", name:"C++", year:1985, units:16, q:50, levels:4},
+  {key:"python", name:"Python", year:1991, units:24, q:76, levels:6},
+  {key:"visual_basic", name:"Visual Basic", year:1991, units:24, q:84, levels:6},
+  {key:"java", name:"Java", year:1995, units:24, q:85, levels:6},
+  {key:"javascript", name:"JavaScript", year:1995, units:24, q:77, levels:6},
+  {key:"php", name:"PHP", year:1995, units:16, q:57, levels:4},
+  {key:"csharp", name:"C#", year:2000, units:24, q:83, levels:6},
+  {key:"rust", name:"Rust", year:2010, units:16, q:59, levels:4}
 ];
-document.getElementById('cards-short').innerHTML = SHORT_LANGS.map(l => card({lang:l.name, levels:l.levels, units:l.units, q:l.q,
-  href:'browse.html?type=short&lang=' + l.key, gotchaTag:'구성', gotchaHtml:'코드 출력 결과 맞히기와 빈칸 채우기'})).join('');
+const ERAS = [[1950, 1969, '1950~60년대 · 개척기'], [1970, 1989, '1970~80년대 · 구조적 프로그래밍과 시스템 언어'],
+              [1990, 1999, '1990년대 · 객체지향과 웹 스크립트'], [2000, 9999, '2000년 이후 · 현대 언어']];
+document.getElementById('cards-short').innerHTML = ERAS.map(er => {
+  const ls = SHORT_LANGS.filter(l => l.year >= er[0] && l.year <= er[1]);
+  if (!ls.length) return '';
+  return `<p class="desc" style="padding:0 26px;margin:18px 0 10px;font-weight:600">${er[2]}</p><div class="cards">` +
+    ls.map(l => card({lang:`${l.name} (${l.year})`, levels:l.levels, units:l.units, q:l.q,
+      href:'browse.html?type=short&lang=' + l.key, gotchaTag:'구성', gotchaHtml:'코드 출력 결과 맞히기와 빈칸 채우기'})).join('') + '</div>';
+}).join('');
 
 (document.getElementById('cards-cert') || {}).innerHTML = [
   card({lang:'Amazon (AWS)', levels:8, units:32, q:192, href:'browse.html?type=certvendor&cert=cert_aws', gotchaTag:'구성', gotchaHtml:'CLF-C02(Cloud Practitioner) + SAA-C03(Solutions Architect Associate) — IAM 정책 평가 순서, Multi-AZ vs 읽기 복제본 등 실무 트레이드오프까지'}),
