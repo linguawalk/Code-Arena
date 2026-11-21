@@ -386,20 +386,18 @@
     <div class="eyebrow">curriculum index &mdash; v1</div>
     <h1>CODE ARENA<span>.</span></h1>
     <p class="sub">
-      13개 프로그래밍 언어 + 5개 개념 모듈, <strong>1,910문제</strong>(퀴즈)와 16개 언어
-      <strong>603문제</strong>(직접 코드 작성), 그리고 8개 글로벌 벤더 자격증
-      <strong>1,152문제</strong>로 구성됩니다. 퀴즈는 실제 컴파일러·인터프리터 또는 공식 문서로
-      직접 검증했고, 실습형은 실제 실행 결과로 채점받습니다(채점 서버는 준비 중).
+      16개 프로그래밍 언어의 <strong>603개 실습 문제</strong>(직접 코드 작성)로 구성됩니다.
+      예전 객관식 퀴즈와 자격증 문제는 현재 비공개이며, 개념 중심 단답형 콘텐츠로 전환할 예정입니다.
+      채점 서버는 준비 중입니다.
     </p>
     <div class="specsheet">
       <div><div class="spec-num">16</div><div class="spec-label">프로그래밍 언어</div></div>
-      <div><div class="spec-num">1,910</div><div class="spec-label">퀴즈 문제(개념이해형)</div></div>
       <div><div class="spec-num">603</div><div class="spec-label">실습 문제(코드 작성)</div></div>
-      <div><div class="spec-num">1,152</div><div class="spec-label">글로벌 자격증 문제(8개 자격증)</div></div>
     </div>
   </header>
 
-  <!-- ===================== TIMELINE (signature) ===================== -->
+  <!-- HIDDEN(2026-11, 비공개 처리 — 되살리려면 주석 해제)
+[===================== TIMELINE (signature) =====================]
   <section class="block">
     <div class="section-head">
       <h2>언어 연대표</h2>
@@ -421,13 +419,7 @@
     </div>
   </section>
 
-  <!-- ===================== FOUNDATION ===================== -->
-  <section class="block">
-    <div class="section-head">
-      <h2>커리큘럼 구성</h2>
-      <span class="tag">// 클릭해서 각 구획 펼쳐보기</span>
-    </div>
-
+  [FOUNDATION]
     <details class="track" open style="--accent: var(--c-found);">
       <summary>
         <div class="track-bar"></div>
@@ -450,7 +442,7 @@
       </div>
     </details>
 
-    <!-- ===================== TRACK A ===================== -->
+    [===================== TRACK A =====================]
     <details class="track" style="--accent: var(--c-system);">
       <summary>
         <div class="track-bar"></div>
@@ -462,7 +454,7 @@
       <div class="cards" id="cards-a"></div>
     </details>
 
-    <!-- ===================== TRACK B ===================== -->
+    [===================== TRACK B =====================]
     <details class="track" style="--accent: var(--c-oop);">
       <summary>
         <div class="track-bar"></div>
@@ -474,7 +466,7 @@
       <div class="cards" id="cards-b"></div>
     </details>
 
-    <!-- ===================== TRACK C ===================== -->
+    [===================== TRACK C =====================]
     <details class="track" style="--accent: var(--c-script);">
       <summary>
         <div class="track-bar"></div>
@@ -486,7 +478,7 @@
       <div class="cards" id="cards-c"></div>
     </details>
 
-    <!-- ===================== TRACK D ===================== -->
+    [===================== TRACK D =====================]
     <details class="track" style="--accent: var(--c-legacy);">
       <summary>
         <div class="track-bar"></div>
@@ -498,7 +490,7 @@
       <div class="cards" id="cards-d"></div>
     </details>
 
-    <!-- ===================== MODULES ===================== -->
+    [===================== MODULES =====================]
     <details class="track" style="--accent: var(--c-module);">
       <summary>
         <div class="track-bar"></div>
@@ -510,7 +502,15 @@
       <div class="cards" id="cards-m"></div>
     </details>
 
-    <!-- ===================== PRACTICE (실습형) ===================== -->
+    -->
+
+  <section class="block">
+    <div class="section-head">
+      <h2>실습 과정</h2>
+      <span class="tag">// 직접 코드를 작성하는 문제</span>
+    </div>
+
+  <!-- ===================== PRACTICE (실습형) ===================== -->
     <details class="track" style="--accent: var(--c-system);">
       <summary>
         <div class="track-bar"></div>
@@ -526,7 +526,8 @@
       <div class="cards" id="cards-practice"></div>
     </details>
 
-    <!-- ===================== GLOBAL CERTIFICATIONS ===================== -->
+    <!-- HIDDEN(2026-11, 비공개 처리 — 되살리려면 주석 해제)
+[GLOBAL CERTIFICATIONS]
     <details class="track" style="--accent: var(--c-oop);">
       <summary>
         <div class="track-bar"></div>
@@ -538,7 +539,8 @@
       <div class="cards" id="cards-cert"></div>
     </details>
 
-  </section>
+-->
+    </section>
 
   <footer>
     <span>CODE ARENA — linguawalk/Code-Arena</span>
@@ -572,7 +574,7 @@ const COLORS = {
 };
 const YMIN = 1955, YMAX = 2015;
 
-const tlEl = document.getElementById('timeline');
+const tlEl = document.getElementById('timeline') || document.createElement('div');
 tlEl.innerHTML = '<div class="axis"></div>';
 
 // stagger overlapping years alternately above/below
@@ -625,32 +627,32 @@ function card({lang, levels, units, q, gotchaTag, gotchaHtml, href}) {
   </a>`;
 }
 
-document.getElementById('cards-a').innerHTML = [
+(document.getElementById('cards-a') || {}).innerHTML = [
   card({lang:'C', levels:6, units:24, q:143, href:'browse.html?type=language&track=track_a&lang=c', gotchaTag:'발견한 함정', gotchaHtml:'포인터 산술, 이중 포인터, <code>%d</code> 등 포맷 지정자 불일치 시 정의되지 않은 동작'}),
   card({lang:'C++', levels:4, units:16, q:96, href:'browse.html?type=language&track=track_a&lang=cpp', gotchaTag:'발견한 함정', gotchaHtml:'<code>virtual</code> 없이는 다형성이 동작하지 않음 — Java와 달리 기본이 정적 바인딩'}),
   card({lang:'Rust', levels:4, units:16, q:96, href:'browse.html?type=language&track=track_a&lang=rust', gotchaTag:'발견한 함정', gotchaHtml:'소유권 이동(move)과 대여 검사기 — 컴파일 시점에 메모리 안전성 강제'}),
 ].join('');
 
-document.getElementById('cards-b').innerHTML = [
+(document.getElementById('cards-b') || {}).innerHTML = [
   card({lang:'Visual Basic', levels:6, units:24, q:143, href:'browse.html?type=language&track=track_b&lang=visual_basic', gotchaTag:'발견한 함정', gotchaHtml:'<code>Dim nums(4)</code>는 5개 요소 — 인덱스 기반 크기 지정, C#의 개수 기반과 반대'}),
   card({lang:'C#', levels:6, units:24, q:144, href:'browse.html?type=language&track=track_b&lang=csharp', gotchaTag:'발견한 함정', gotchaHtml:'switch fall-through는 <code>CS0163</code> 컴파일 오류 — C 계열과 정반대 규칙'}),
   card({lang:'Java', levels:6, units:24, q:144, href:'browse.html?type=language&track=track_b&lang=java', gotchaTag:'발견한 함정', gotchaHtml:'메서드가 기본적으로 오버라이드 가능, <code>HashMap.get()</code>은 예외 대신 null 반환'}),
 ].join('');
 
-document.getElementById('cards-c').innerHTML = [
+(document.getElementById('cards-c') || {}).innerHTML = [
   card({lang:'Python', levels:6, units:24, q:143, href:'browse.html?type=language&track=track_c&lang=python', gotchaTag:'발견한 함정', gotchaHtml:'가변 기본값 매개변수 함정, <code>-7 // 2 == -4</code> (음의 무한대 방향 내림)'}),
   card({lang:'JavaScript', levels:6, units:24, q:144, href:'browse.html?type=language&track=track_c&lang=javascript', gotchaTag:'발견한 함정', gotchaHtml:'<code>typeof null === "object"</code>, <code>10/0 === Infinity</code> (예외 없음)'}),
   card({lang:'PHP', levels:4, units:16, q:96, href:'browse.html?type=language&track=track_c&lang=php', gotchaTag:'발견한 함정', gotchaHtml:'문자열 연결은 <code>.</code> (+가 아님), PHP 8에서 <code>"Hello"+5</code>는 TypeError'}),
 ].join('');
 
-document.getElementById('cards-d').innerHTML = [
+(document.getElementById('cards-d') || {}).innerHTML = [
   card({lang:'BASIC', levels:3, units:12, q:71, href:'browse.html?type=language&track=track_d&lang=basic_early', gotchaTag:'발견한 함정', gotchaHtml:'<code>ON N GOTO</code> 범위 초과 시 조용히 넘어가지 않고 실제로 런타임 오류 발생'}),
   card({lang:'Pascal', levels:3, units:12, q:72, href:'browse.html?type=language&track=track_d&lang=pascal', gotchaTag:'발견한 함정', gotchaHtml:'<code>;</code>는 종결자가 아닌 구분자 — then절 뒤 세미콜론이 if문을 조기 종료시킴'}),
   card({lang:'FORTRAN', levels:3, units:12, q:72, href:'browse.html?type=language&track=track_d&lang=fortran', gotchaTag:'발견한 함정', gotchaHtml:'<code>z = x/y</code>가 실수 변수여도 정수 나눗셈이 먼저 계산됨; 기본이 참조 전달'}),
   card({lang:'COBOL', levels:3, units:12, q:72, href:'browse.html?type=language&track=track_d&lang=cobol', gotchaTag:'발견한 함정', gotchaHtml:'<code>REDEFINES</code>로 같은 메모리를 다른 구조로 재해석 — C의 union과 유사'}),
 ].join('');
 
-document.getElementById('cards-m').innerHTML = [
+(document.getElementById('cards-m') || {}).innerHTML = [
   card({lang:'자료구조 & 알고리즘', levels:4, units:16, q:96, href:'browse.html?type=module&key=dsa', gotchaTag:'핵심 개념', gotchaHtml:'Big-O, 스택/큐, 정렬(버블~퀵), 이진 탐색 — 실제 시간 측정으로 이론 검증'}),
   card({lang:'통계', levels:4, units:16, q:96, href:'browse.html?type=module&key=statistics', gotchaTag:'핵심 개념', gotchaHtml:'평균·분산부터 가설검정·p값, 베이즈 정리(16.7% 반전 사례), 심슨의 역설까지'}),
   card({lang:'DB 이론', levels:2, units:8, q:48, href:'browse.html?type=module&key=db_theory', gotchaTag:'핵심 개념', gotchaHtml:'정규화(1NF~3NF), 기본키·외래키, 트랜잭션(ACID), 인덱스, ER 다이어그램'}),
@@ -677,7 +679,7 @@ document.getElementById('cards-practice').innerHTML = [
   card({lang:'COBOL', levels:3, units:12, q:24, href:'browse.html?type=practice&lang=cobol', gotchaTag:'구성', gotchaHtml:'기초 입출력부터 회문·피보나치까지 — Piston 실행 검증'}),
 ].join('');
 
-document.getElementById('cards-cert').innerHTML = [
+(document.getElementById('cards-cert') || {}).innerHTML = [
   card({lang:'Amazon (AWS)', levels:8, units:32, q:192, href:'browse.html?type=certvendor&cert=cert_aws', gotchaTag:'구성', gotchaHtml:'CLF-C02(Cloud Practitioner) + SAA-C03(Solutions Architect Associate) — IAM 정책 평가 순서, Multi-AZ vs 읽기 복제본 등 실무 트레이드오프까지'}),
   card({lang:'Oracle', levels:17, units:68, q:408, href:'browse.html?type=certvendor&cert=cert_oracle', gotchaTag:'구성', gotchaHtml:'Java OCP(1Z0-829) · SQL Associate(1Z0-071) · PL/SQL Associate(1Z0-149) — 전 문제 실제 javac/sqlite3/공식오류코드로 검증'}),
   card({lang:'Microsoft (Azure)', levels:3, units:12, q:72, href:'browse.html?type=certvendor&cert=cert_microsoft', gotchaTag:'구성', gotchaHtml:'AZ-900(Azure Fundamentals, 2026년 1월 개정판 기준) — 탄력성 vs 확장성 등 흔한 함정 포인트 포함'}),

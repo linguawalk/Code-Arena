@@ -366,6 +366,10 @@ function renderError(msg) {
 
 if (typeof CURRICULUM === 'undefined') {
   renderError('curriculum-data.js를 불러오지 못했습니다. 같은 폴더에 있는지 확인하세요.');
+} else if ((CURRICULUM.HIDDEN_TYPES || []).indexOf(TYPE) >= 0) {
+  // 숨긴 유형: 검색에 잡히지 않게 하고 공개 중인 실습 목록으로 보냄
+  const m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex'; document.head.appendChild(m);
+  location.replace('browse.html?type=practice&lang=python');
 } else if (TYPE === 'language') {
   renderLanguage();
 } else if (TYPE === 'foundation') {
@@ -378,6 +382,8 @@ if (typeof CURRICULUM === 'undefined') {
   renderCertVendor();
 } else if (TYPE === 'certexam') {
   renderCertExam();
+} else if (!TYPE) {
+  location.replace('browse.html?type=practice&lang=python');
 } else {
   renderError('알 수 없는 유형입니다: ' + TYPE);
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<meta name="robots" content="noindex">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CODE ARENA — 문제 풀이</title>
@@ -303,6 +304,7 @@
   </div>
 </div>
 
+<script src="curriculum-data.js"></script>
 <script>
 const params = new URLSearchParams(location.search);
 const FILE  = params.get('file');
@@ -391,6 +393,10 @@ let unitTitle = '';
 async function init() {
   if (!FILE) {
     app.innerHTML = `<div class="error-state"><div class="big">⚠</div>파일 경로가 지정되지 않았습니다.<br><span style="opacity:.6">player.html?file=경로/파일.json</span></div>`;
+    return;
+  }
+  if (typeof CURRICULUM !== 'undefined' && CURRICULUM.isHiddenPath(FILE)) {
+    app.innerHTML = `<div class="error-state"><div class="big">🔒</div>이 문제 묶음은 현재 공개하지 않습니다.<br><a href="index.html" style="color:var(--accent)">처음으로 돌아가기</a></div>`;
     return;
   }
   try {
